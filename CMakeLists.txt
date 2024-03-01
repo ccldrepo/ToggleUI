@@ -1,13 +1,16 @@
 cmake_minimum_required(VERSION 3.28)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-
 project(
     ccld_ToggleUI
     VERSION 1.0.0
     DESCRIPTION "SKSE Plugin that allows users to toggle UI."
     LANGUAGES CXX
 )
+
+set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+set(CMAKE_INTERPROCEDURAL_OPTIMIZATION "$<$<CONFIG:Release>:ON>")
 
 configure_file(
     "${CMAKE_CURRENT_SOURCE_DIR}/cmake/version.rc.in"
@@ -42,6 +45,13 @@ add_commonlibsse_plugin(
         ${headers}
         ${sources}
         "${CMAKE_CURRENT_BINARY_DIR}/version.rc"
+)
+
+target_compile_definitions(
+    ${PROJECT_NAME}
+    PRIVATE
+        _UNICODE
+        NOMINMAX
 )
 
 target_compile_features(
