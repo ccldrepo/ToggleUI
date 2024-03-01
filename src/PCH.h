@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <chrono>
 #include <climits>
@@ -11,6 +12,7 @@
 #include <fstream>
 #include <functional>
 #include <initializer_list>
+#include <ios>
 #include <memory>
 #include <mutex>
 #include <optional>
@@ -29,5 +31,9 @@
 #include <RE/Skyrim.h>
 #include <REL/Relocation.h>
 #include <SKSE/SKSE.h>
+
+#include <fmt/core.h>
+#include <fmt/format.h>
+#include <fmt/ranges.h>
 
 using namespace std::literals::string_view_literals;

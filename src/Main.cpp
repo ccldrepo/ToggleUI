@@ -52,7 +52,7 @@ SKSEPluginLoad(const SKSE::LoadInterface* a_skse)
     SKSE::log::info("Game Version: {}", a_skse->RuntimeVersion().string("."sv));
 
     auto plugin = SKSE::PluginDeclaration::GetSingleton();
-    SKSE::log::info("{} {} is loading...", plugin->GetName(), plugin->GetVersion());
+    SKSE::log::info("{} {} is loading...", plugin->GetName(), plugin->GetVersion().string("."sv));
 
     SKSE::Init(a_skse);
 

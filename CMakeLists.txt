@@ -21,6 +21,14 @@ configure_file(
 include(cmake/headerlist.cmake)
 include(cmake/sourcelist.cmake)
 
+source_group(
+    TREE
+        ${CMAKE_CURRENT_SOURCE_DIR}
+    FILES
+        ${headers}
+        ${sources}
+)
+
 # ---- Declare Dependencies ----
 
 if(DEFINED ENV{VENDOR_GITHUB})
