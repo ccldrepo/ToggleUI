@@ -2,13 +2,13 @@
 
 #include <PCH.h>
 
-class Application
-{
-public:
-    static Application* GetSingleton();
-    Application(const Application&) = delete;
-    Application& operator=(const Application&) = delete;
+#include "Util/Singleton.h"
 
+class Application final : public Singleton<Application>
+{
+    friend class Singleton<Application>;
+
+public:
     static void ResetUI();
     static void ToggleUI();
 

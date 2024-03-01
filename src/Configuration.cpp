@@ -2,12 +2,6 @@
 
 #include <toml++/toml.hpp>
 
-Configuration* Configuration::GetSingleton()
-{
-    static Configuration singleton;
-    return std::addressof(singleton);
-}
-
 void Configuration::Init()
 {
     if (std::filesystem::exists(path)) {

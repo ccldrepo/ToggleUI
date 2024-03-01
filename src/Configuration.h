@@ -2,13 +2,13 @@
 
 #include <PCH.h>
 
-class Configuration
-{
-public:
-    static Configuration* GetSingleton();
-    Configuration(const Configuration&) = delete;
-    Configuration& operator=(const Configuration&) = delete;
+#include "Util/Singleton.h"
 
+class Configuration final : public Singleton<Configuration>
+{
+    friend class Singleton<Configuration>;
+
+public:
     void Init();
     void Load();
     void Save() const;

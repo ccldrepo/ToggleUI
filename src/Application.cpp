@@ -1,11 +1,5 @@
 #include "Application.h"
 
-Application* Application::GetSingleton()
-{
-    static Application singleton;
-    return std::addressof(singleton);
-}
-
 void Application::ResetUI()
 {
     auto ui = RE::UI::GetSingleton();
