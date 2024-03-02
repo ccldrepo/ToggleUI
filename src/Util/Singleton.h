@@ -7,7 +7,7 @@ template <class T>
 class Singleton
 {
 public:
-    static T* GetSingleton()
+    [[nodiscard]] static T* GetSingleton()
     {
         static T singleton;
         return std::addressof(singleton);
