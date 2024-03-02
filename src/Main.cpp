@@ -25,7 +25,7 @@ namespace
         spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] %v");
     }
 
-    void OnMessaging(SKSE::MessagingInterface::Message* a_message)
+    void OnMessage(SKSE::MessagingInterface::Message* a_message)
     {
         switch (a_message->type) {
         case SKSE::MessagingInterface::kInputLoaded:
@@ -59,7 +59,7 @@ SKSEPluginLoad(const SKSE::LoadInterface* a_skse)
     Configuration::GetSingleton()->Init();
 
     auto messaging = SKSE::GetMessagingInterface();
-    messaging->RegisterListener(OnMessaging);
+    messaging->RegisterListener(OnMessage);
 
     SKSE::log::info("{} has finished loading.", plugin->GetName());
     return true;
