@@ -18,8 +18,13 @@ namespace
         *path += L".log";
 
         auto logger = spdlog::basic_logger_mt("Global", path->string(), true);
+#ifndef _DEBUG
         logger->set_level(spdlog::level::info);
         logger->flush_on(spdlog::level::info);
+#else
+        logger->set_level(spdlog::level::debug);
+        logger->flush_on(spdlog::level::debug);
+#endif
 
         spdlog::set_default_logger(std::move(logger));
         spdlog::set_pattern("[%Y-%m-%d %H:%M:%S.%e] [%l] %v");
