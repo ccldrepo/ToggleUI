@@ -7,4 +7,3 @@ SKSE Plugin that allows users to toggle UI.
 - Visual Studio 2022
 - CMake >= 3.28
 - Ninja
-- Vcpkg

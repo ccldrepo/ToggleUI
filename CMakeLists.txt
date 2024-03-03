@@ -7,6 +7,7 @@ project(
     LANGUAGES CXX
 )
 
+set(BUILD_SHARED_LIBS OFF)
 set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -38,14 +39,23 @@ else()
 endif()
 
 include(FetchContent)
+include(cmake/deps/fmt.cmake)
+include(cmake/deps/rapidcsv.cmake)
+include(cmake/deps/spdlog.cmake)
 include(cmake/deps/tomlplusplus.cmake)
+include(cmake/deps/CommonLibSSE-NG.cmake)
 
-find_package(CommonLibSSE CONFIG REQUIRED)
-find_package(fmt CONFIG REQUIRED)
-find_package(spdlog CONFIG REQUIRED)
-find_package(tomlplusplus CONFIG REQUIRED)
+FetchContent_MakeAvailable(
+    fmt
+    rapidcsv
+    spdlog
+    tomlplusplus
+    CommonLibSSE
+)
 
 # ---- Declare Targets ----
+
+include("${commonlibsse_SOURCE_DIR}/cmake/CommonLibSSE.cmake")
 
 add_commonlibsse_plugin(
     "${PROJECT_NAME}"
