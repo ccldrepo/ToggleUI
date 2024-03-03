@@ -15,6 +15,8 @@ public:
 
     static constexpr std::array hudNames{
         RE::HUDMenu::MENU_NAME,
+        "BTPS Menu"sv,
+        "CastingBar"sv,
         "MiniMapMenu"sv,
         "oxygenMeter"sv,
         "oxygenMeter2"sv,

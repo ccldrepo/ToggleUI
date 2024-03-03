@@ -52,6 +52,7 @@ void Application::ToggleHUD(RE::UI* ui)
 
 void Application::ToggleMenu(RE::UI* ui)
 {
+    // Toggle the whole UI system.
     menuVisible = !menuVisible;
     ui->ShowMenus(menuVisible);
     RE::PlaySound("UIMenuFocus");
