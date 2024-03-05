@@ -2,7 +2,7 @@
 
 bool Application::IsMenu(std::string_view a_menuName)
 {
-    for (std::string_view menuName : menuNames) {
+    for (std::string_view menuName : config->slMenuNames) {
         if (menuName == a_menuName) {
             return true;
         }
@@ -30,7 +30,7 @@ void Application::ToggleUI()
 
 bool Application::IsInMenu(RE::UI* ui)
 {
-    for (std::string_view menuName : menuNames) {
+    for (std::string_view menuName : config->slMenuNames) {
         if (ui->IsMenuOpen(menuName)) {
             return true;
         }
@@ -42,7 +42,7 @@ void Application::ToggleHUD(RE::UI* ui)
 {
     hudVisible = !hudVisible;
     RE::GFxValue value{ hudVisible ? 100 : 0 };
-    for (std::string_view hudName : hudNames) {
+    for (std::string_view hudName : config->slHUDNames) {
         if (auto uiMovie = ui->GetMovieView(hudName)) {
             uiMovie->SetVariable("_root._alpha", value);
         }

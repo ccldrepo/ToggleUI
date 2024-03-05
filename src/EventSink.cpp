@@ -55,7 +55,7 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
     std::vector<std::string_view> menuNamesOnStack;
     for (auto& entry : ui->menuMap) {
         menuNames.push_back(entry.first);
-        auto &menu = entry.second.menu;
+        auto& menu = entry.second.menu;
         if (menu && menu->OnStack()) {
             menuNamesOnStack.push_back(entry.first);
         }
@@ -66,8 +66,8 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
 #endif
 
     if (!a_event->opening) {
-        if (Application::IsMenu(a_event->menuName)) {
-            auto app = Application::GetSingleton();
+        auto app = Application::GetSingleton();
+        if (app->IsMenu(a_event->menuName)) {
             app->ResetUI();
         }
     }
