@@ -72,6 +72,7 @@ void Configuration::LoadImpl()
 
     slHUDNames = from_array<std::string>(data, "slHUDNames"sv);
     slMenuNames = from_array<std::string>(data, "slMenuNames"sv);
+    slBannedMenuNames = from_array<std::string>(data, "slBannedMenuNames"sv);
 }
 
 void Configuration::SaveImpl() const
@@ -81,6 +82,7 @@ void Configuration::SaveImpl() const
 
     data.insert("slHUDNames"sv, to_array(slHUDNames));
     data.insert("slMenuNames"sv, to_array(slMenuNames));
+    data.insert("slBannedMenuNames"sv, to_array(slBannedMenuNames));
 
     std::ofstream file{ path };
     file << data << std::endl;

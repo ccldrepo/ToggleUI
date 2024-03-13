@@ -18,6 +18,8 @@ private:
     Application() : config(Configuration::GetSingleton()) {}
 
     bool IsInMenu(RE::UI* ui);
+    bool IsInBannedMenu(RE::UI* ui);
+
     void ToggleHUD(RE::UI* ui);
     void ToggleMenu(RE::UI* ui);
 

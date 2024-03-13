@@ -48,9 +48,11 @@ public:
         };
     };
 
-    uint32_t                 iHotkey{ Default::iHotkey };
+    uint32_t iHotkey{ Default::iHotkey };
+
     std::vector<std::string> slHUDNames{ Default::slHUDNames.begin(), Default::slHUDNames.end() };
     std::vector<std::string> slMenuNames{ Default::slMenuNames.begin(), Default::slMenuNames.end() };
+    std::vector<std::string> slBannedMenuNames{};
 
 private:
     Configuration() = default;

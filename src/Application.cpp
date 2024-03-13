@@ -21,7 +21,9 @@ void Application::ResetUI()
 void Application::ToggleUI()
 {
     auto ui = RE::UI::GetSingleton();
-    if (IsInMenu(ui)) {
+    if (IsInBannedMenu(ui)) {
+        // Disable toggle.
+    } else if (IsInMenu(ui)) {
         ToggleMenu(ui);
     } else {
         ToggleHUD(ui);
@@ -31,6 +33,16 @@ void Application::ToggleUI()
 bool Application::IsInMenu(RE::UI* ui)
 {
     for (std::string_view menuName : config->slMenuNames) {
+        if (ui->IsMenuOpen(menuName)) {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool Application::IsInBannedMenu(RE::UI* ui)
+{
+    for (std::string_view menuName : config->slBannedMenuNames) {
         if (ui->IsMenuOpen(menuName)) {
             return true;
         }
