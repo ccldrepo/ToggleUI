@@ -32,30 +32,16 @@ source_group(
 
 # ---- Declare Dependencies ----
 
-if(DEFINED ENV{VENDOR_GITHUB})
-    cmake_path(SET VENDOR_GITHUB "$ENV{VENDOR_GITHUB}")
-else()
-    set(VENDOR_GITHUB "https://github.com")
+if(NOT CMAKE_PREFIX_PATH AND DEFINED ENV{DEV_INSTALL_PATH})
+    cmake_path(SET CMAKE_PREFIX_PATH "$ENV{DEV_INSTALL_PATH}/${CMAKE_BUILD_TYPE}")
 endif()
 
-include(FetchContent)
-include(cmake/deps/fmt.cmake)
-include(cmake/deps/rapidcsv.cmake)
-include(cmake/deps/spdlog.cmake)
-include(cmake/deps/tomlplusplus.cmake)
-include(cmake/deps/CommonLibSSE-NG.cmake)
-
-FetchContent_MakeAvailable(
-    fmt
-    rapidcsv
-    spdlog
-    tomlplusplus
-    CommonLibSSE
-)
+find_package(CommonLibSSE REQUIRED)
+find_package(fmt REQUIRED)
+find_package(spdlog REQUIRED)
+find_package(tomlplusplus REQUIRED)
 
 # ---- Declare Targets ----
-
-include("${commonlibsse_SOURCE_DIR}/cmake/CommonLibSSE.cmake")
 
 add_commonlibsse_plugin(
     "${PROJECT_NAME}"
