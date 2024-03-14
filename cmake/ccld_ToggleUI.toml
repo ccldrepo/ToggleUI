@@ -1,0 +1,37 @@
+# The hotkey code, see:
+# https://wiki.nexusmods.com/index.php/DirectX_Scancodes_And_How_To_Use_Them
+iHotkey = 64
+
+slHUDNames = [
+    'HUD Menu',
+    'BTPS Menu',
+    'CastingBar',
+    'Floating Damage V2',
+    'MiniMapMenu',
+    'oxygenMeter2',
+    'TrueHUD',
+]
+
+slMenuNames = [
+    'BarterMenu',
+    'Book Menu',
+    'Console',
+    'ContainerMenu',
+    'Crafting Menu',
+    'Dialogue Menu',
+    'FavoritesMenu',
+    'GiftMenu',
+    'InventoryMenu',
+    'Journal Menu',
+    'Lockpicking Menu',
+    'MagicMenu',
+    'MapMenu',
+    'RaceSex Menu',
+    'Sleep/Wait Menu',
+    'StatsMenu',
+    'TweenMenu',
+]
+
+# Move menu names from slMenuNames to slBannedMenuNames if you want to disable
+# "Toggle UI" in those menus.
+slBannedMenuNames = []

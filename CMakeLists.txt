@@ -19,6 +19,12 @@ configure_file(
     @ONLY
 )
 
+configure_file(
+    "${CMAKE_CURRENT_SOURCE_DIR}/cmake/ccld_ToggleUI.toml"
+    "${CMAKE_CURRENT_BINARY_DIR}/ccld_ToggleUI.toml"
+    COPYONLY
+)
+
 include(cmake/headerlist.cmake)
 include(cmake/sourcelist.cmake)
 
