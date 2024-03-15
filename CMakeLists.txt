@@ -58,7 +58,7 @@ add_commonlibsse_plugin(
 )
 
 target_compile_definitions(
-    ${PROJECT_NAME}
+    "${PROJECT_NAME}"
     PRIVATE
         _UNICODE
         NOMINMAX
@@ -69,6 +69,14 @@ target_compile_features(
     PRIVATE
         cxx_std_23
 )
+
+if(MSVC)
+    target_compile_options(
+        "${PROJECT_NAME}"
+        PRIVATE
+            /W4
+    )
+endif()
 
 target_include_directories(
     "${PROJECT_NAME}"
