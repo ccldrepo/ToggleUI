@@ -29,6 +29,8 @@ slMenuNames = [
     'RaceSex Menu',
     'Sleep/Wait Menu',
     'StatsMenu',
+    'Training Menu',
+    'Tutorial Menu',
     'TweenMenu',
 ]
 

@@ -44,6 +44,8 @@ public:
             RE::RaceSexMenu::MENU_NAME,
             RE::SleepWaitMenu::MENU_NAME,
             RE::StatsMenu::MENU_NAME,
+            RE::TrainingMenu::MENU_NAME,
+            RE::TutorialMenu::MENU_NAME,
             RE::TweenMenu::MENU_NAME,
         };
     };
