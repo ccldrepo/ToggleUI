@@ -2,11 +2,15 @@
 # https://wiki.nexusmods.com/index.php/DirectX_Scancodes_And_How_To_Use_Them
 iHotkey = 64
 
+# The list of HUD that can be toggled. Remove HUD names from the list if you
+# don't want to toggle those HUD.
 slHUDNames = [
     'HUD Menu',
     'BTPS Menu',
     'CastingBar',
+    'Durability Menu',
     'Floating Damage V2',
+    'LootMenu',
     'MiniMapMenu',
     'oxygenMeter2',
     'TrueHUD',
