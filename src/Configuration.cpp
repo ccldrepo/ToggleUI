@@ -68,6 +68,7 @@ void Configuration::Save() const
 void Configuration::LoadImpl()
 {
     auto data = toml::parse_file(path);
+
     iHotkey = data["iHotkey"sv].value_or(Default::iHotkey);
 
     slHUDNames = from_array<std::string>(data, "slHUDNames"sv);
@@ -78,6 +79,7 @@ void Configuration::LoadImpl()
 void Configuration::SaveImpl() const
 {
     toml::table data;
+
     data.insert("iHotkey"sv, iHotkey);
 
     data.insert("slHUDNames"sv, to_array(slHUDNames));

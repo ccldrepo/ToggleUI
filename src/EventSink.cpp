@@ -50,7 +50,8 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
     }
 
 #ifdef _DEBUG
-    auto                          ui = RE::UI::GetSingleton();
+    auto ui = RE::UI::GetSingleton();
+
     std::vector<std::string_view> menuNames;
     std::vector<std::string_view> menuNamesOnStack;
     for (auto& entry : ui->menuMap) {
@@ -60,6 +61,7 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
             menuNamesOnStack.push_back(entry.first);
         }
     }
+
     SKSE::log::debug("Menus: {}.", menuNames);
     SKSE::log::debug("Menus On Stack: {}.", menuNamesOnStack);
     SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", a_event->menuName.c_str());
