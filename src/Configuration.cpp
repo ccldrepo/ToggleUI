@@ -46,9 +46,8 @@ void Configuration::Load()
         LoadImpl();
         SKSE::log::info("Loaded configuration from \"{}\".", path);
     } catch (const std::exception& e) {
-        SKSE::log::error("Failed to load configuration from \"{}\".", path);
-        SKSE::log::error("{}", e.what());
-        throw;
+        auto msg = std::format("Failed to load configuration from \"{}\": {}", path, e.what());
+        SKSE::stl::report_and_fail(msg);
     }
 }
 
@@ -59,9 +58,8 @@ void Configuration::Save() const
         SaveImpl();
         SKSE::log::info("Saved configuration to \"{}\".", path);
     } catch (const std::exception& e) {
-        SKSE::log::error("Failed to save configuration to \"{}\".", path);
-        SKSE::log::error("{}", e.what());
-        throw;
+        auto msg = std::format("Failed to save configuration to \"{}\": {}", path, e.what());
+        SKSE::stl::report_and_fail(msg);
     }
 }
 

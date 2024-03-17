@@ -37,6 +37,8 @@ RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[ma
         case RE::INPUT_DEVICE::kGamepad:
             key = SKSE::InputMap::GamepadMaskToKeycode(key);
             break;
+        default:
+            break;
         }
 
         auto config = Configuration::GetSingleton();
