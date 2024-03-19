@@ -1,7 +1,6 @@
 #include "EventSink.h"
 
 #include "Application.h"
-#include "Configuration.h"
 
 void InputEventSink::Register()
 {
@@ -16,8 +15,7 @@ RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[ma
         return RE::BSEventNotifyControl::kContinue;
     }
 
-    auto player = RE::PlayerCharacter::GetSingleton();
-    if (!player || !player->Is3DLoaded()) {
+    if (auto player = RE::PlayerCharacter::GetSingleton(); !player || !player->Is3DLoaded()) {
         return RE::BSEventNotifyControl::kContinue;
     }
 

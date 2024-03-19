@@ -27,7 +27,7 @@ void HotkeyContext::Update(const RE::ButtonEvent* button)
     }
 }
 
-bool Application::IsMenu(std::string_view a_menuName)
+bool Application::IsMenu(std::string_view a_menuName) const
 {
     for (std::string_view menuName : config->slMenuNames) {
         if (menuName == a_menuName) {
@@ -57,7 +57,7 @@ void Application::ToggleUI()
     }
 }
 
-bool Application::IsInMenu(RE::UI* ui)
+bool Application::IsInMenu(RE::UI* ui) const
 {
     for (std::string_view menuName : config->slMenuNames) {
         if (ui->IsMenuOpen(menuName)) {
@@ -67,7 +67,7 @@ bool Application::IsInMenu(RE::UI* ui)
     return false;
 }
 
-bool Application::IsInBannedMenu(RE::UI* ui)
+bool Application::IsInBannedMenu(RE::UI* ui) const
 {
     for (std::string_view menuName : config->slBannedMenuNames) {
         if (ui->IsMenuOpen(menuName)) {
@@ -91,7 +91,6 @@ void Application::ToggleHUD(RE::UI* ui)
 
 void Application::ToggleMenu(RE::UI* ui)
 {
-    // Toggle the whole UI system.
     menuVisible = !menuVisible;
     ui->ShowMenus(menuVisible);
     RE::PlaySound("UIMenuFocus");
