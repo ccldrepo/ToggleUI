@@ -21,31 +21,15 @@ RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[ma
         return RE::BSEventNotifyControl::kContinue;
     }
 
+    auto app = Application::GetSingleton();
+    auto hotkey = app->NewHotkeyContext();
+
     for (auto event = *a_event; event; event = event->next) {
-        auto button = event->AsButtonEvent();
-        if (!button || !button->HasIDCode() || !button->IsDown()) {
-            continue;
-        }
+        hotkey.Update(event->AsButtonEvent());
+    }
 
-        uint32_t key = button->GetIDCode();
-        switch (button->GetDevice()) {
-        case RE::INPUT_DEVICE::kKeyboard:
-            break;
-        case RE::INPUT_DEVICE::kMouse:
-            key += SKSE::InputMap::kMacro_MouseButtonOffset;
-            break;
-        case RE::INPUT_DEVICE::kGamepad:
-            key = SKSE::InputMap::GamepadMaskToKeycode(key);
-            break;
-        default:
-            break;
-        }
-
-        auto config = Configuration::GetSingleton();
-        if (key == config->iHotkey) {
-            auto app = Application::GetSingleton();
-            app->ToggleUI();
-        }
+    if (hotkey.hasKey) {
+        app->ToggleUI();
     }
     return RE::BSEventNotifyControl::kContinue;
 }
