@@ -2,33 +2,7 @@
 
 #include <toml++/toml.hpp>
 
-namespace
-{
-    template <class T>
-    std::vector<T> from_array(const toml::table& table, std::string_view key)
-    {
-        auto arr = table[key].as_array();
-        if (!arr) {
-            throw std::runtime_error(std::format("{} is not array.", key));
-        }
-
-        std::vector<T> vec;
-        for (auto& ele : *arr) {
-            vec.push_back(ele.value<T>().value());
-        }
-        return vec;
-    }
-
-    template <class T>
-    toml::array to_array(const std::vector<T>& vec)
-    {
-        toml::array arr;
-        for (auto& ele : vec) {
-            arr.push_back(ele);
-        }
-        return arr;
-    }
-}
+#include "Util/TOML.h"
 
 void Configuration::Init()
 {
@@ -45,6 +19,10 @@ void Configuration::Load()
     try {
         LoadImpl();
         SKSE::log::info("Loaded configuration from \"{}\".", path);
+    } catch (const toml::parse_error& e) {
+        auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}",
+            path, e.source().begin.line, e.source().begin.column, e.what());
+        SKSE::stl::report_and_fail(msg);
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to load configuration from \"{}\": {}", path, e.what());
         SKSE::stl::report_and_fail(msg);
@@ -67,22 +45,22 @@ void Configuration::LoadImpl()
 {
     auto data = toml::parse_file(path);
 
-    iHotkey = data["iHotkey"sv].value_or(Default::iHotkey);
+    LoadTOMLValue(data, "iHotkey"sv, iHotkey);
 
-    slHUDNames = from_array<std::string>(data, "slHUDNames"sv);
-    slMenuNames = from_array<std::string>(data, "slMenuNames"sv);
-    slBannedMenuNames = from_array<std::string>(data, "slBannedMenuNames"sv);
+    LoadTOMLValue(data, "slHUDNames"sv, slHUDNames);
+    LoadTOMLValue(data, "slMenuNames"sv, slMenuNames);
+    LoadTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
 }
 
 void Configuration::SaveImpl() const
 {
     toml::table data;
 
-    data.insert("iHotkey"sv, iHotkey);
+    SaveTOMLValue(data, "iHotkey"sv, iHotkey);
 
-    data.insert("slHUDNames"sv, to_array(slHUDNames));
-    data.insert("slMenuNames"sv, to_array(slMenuNames));
-    data.insert("slBannedMenuNames"sv, to_array(slBannedMenuNames));
+    SaveTOMLValue(data, "slHUDNames"sv, slHUDNames);
+    SaveTOMLValue(data, "slMenuNames"sv, slMenuNames);
+    SaveTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
 
     std::ofstream file{ path };
     file << data << std::endl;
