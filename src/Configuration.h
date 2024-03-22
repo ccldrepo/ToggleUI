@@ -10,8 +10,6 @@ class Configuration final : public Singleton<Configuration>
 
 public:
     void Init();
-    void Load();
-    void Save() const;
 
     struct Default
     {
@@ -61,9 +59,11 @@ public:
 private:
     Configuration() = default;
 
+    void Load();
+    void Save() const;
+
     void LoadImpl();
     void SaveImpl() const;
 
-    mutable std::mutex mutex;
-    const std::string  path{ "Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
+    static const std::string path;
 };

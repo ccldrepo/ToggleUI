@@ -15,7 +15,6 @@ void Configuration::Init()
 
 void Configuration::Load()
 {
-    std::scoped_lock lock{ mutex };
     try {
         LoadImpl();
         SKSE::log::info("Loaded configuration from \"{}\".", path);
@@ -31,7 +30,6 @@ void Configuration::Load()
 
 void Configuration::Save() const
 {
-    std::scoped_lock lock{ mutex };
     try {
         SaveImpl();
         SKSE::log::info("Saved configuration to \"{}\".", path);
@@ -65,3 +63,5 @@ void Configuration::SaveImpl() const
     std::ofstream file{ path };
     file << data << std::endl;
 }
+
+const std::string Configuration::path{ "Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
