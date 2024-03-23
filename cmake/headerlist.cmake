@@ -3,6 +3,7 @@ set(headers
     src/Configuration.h
     src/EventSink.h
     src/PCH.h
+    src/Util/Hotkey.h
     src/Util/Singleton.h
     src/Util/TOML.h
     src/Util/Win.h
