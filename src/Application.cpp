@@ -1,5 +1,18 @@
 #include "Application.h"
 
+namespace
+{
+    bool IsMenuOpen(RE::UI* a_ui, const std::vector<std::string>& a_menuNames)
+    {
+        for (std::string_view menuName : a_menuNames) {
+            if (a_ui->IsMenuOpen(menuName)) {
+                return true;
+            }
+        }
+        return false;
+    }
+}
+
 bool Application::IsMenu(std::string_view a_menuName) const
 {
     for (std::string_view menuName : config->slMenuNames) {
@@ -30,41 +43,31 @@ void Application::ToggleUI()
     }
 }
 
-bool Application::IsInMenu(RE::UI* ui) const
+bool Application::IsInMenu(RE::UI* a_ui) const  //
 {
-    for (std::string_view menuName : config->slMenuNames) {
-        if (ui->IsMenuOpen(menuName)) {
-            return true;
-        }
-    }
-    return false;
+    return IsMenuOpen(a_ui, config->slMenuNames);
 }
 
-bool Application::IsInBannedMenu(RE::UI* ui) const
+bool Application::IsInBannedMenu(RE::UI* a_ui) const  //
 {
-    for (std::string_view menuName : config->slBannedMenuNames) {
-        if (ui->IsMenuOpen(menuName)) {
-            return true;
-        }
-    }
-    return false;
+    return IsMenuOpen(a_ui, config->slBannedMenuNames);
 }
 
-void Application::ToggleHUD(RE::UI* ui)
+void Application::ToggleHUD(RE::UI* a_ui)
 {
     hudVisible = !hudVisible;
     RE::GFxValue value{ hudVisible ? 100 : 0 };
     for (std::string_view hudName : config->slHUDNames) {
-        if (auto uiMovie = ui->GetMovieView(hudName)) {
+        if (auto uiMovie = a_ui->GetMovieView(hudName)) {
             uiMovie->SetVariable("_root._alpha", value);
         }
     }
     RE::PlaySound("UIMenuFocus");
 }
 
-void Application::ToggleMenu(RE::UI* ui)
+void Application::ToggleMenu(RE::UI* a_ui)
 {
     menuVisible = !menuVisible;
-    ui->ShowMenus(menuVisible);
+    a_ui->ShowMenus(menuVisible);
     RE::PlaySound("UIMenuFocus");
 }

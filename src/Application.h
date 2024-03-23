@@ -11,7 +11,10 @@ class Application final : public Singleton<Application>
     friend class Singleton<Application>;
 
 public:
-    HotkeyContext NewHotkeyContext() const { return HotkeyContext{ config->iHotkey }; }
+    HotkeyContext NewHotkeyContext() const  //
+    {
+        return HotkeyContext{ config->iHotkey };
+    }
 
     bool IsMenu(std::string_view a_menuName) const;
 
@@ -21,11 +24,11 @@ public:
 private:
     Application() : config(Configuration::GetSingleton()) {}
 
-    bool IsInMenu(RE::UI* ui) const;
-    bool IsInBannedMenu(RE::UI* ui) const;
+    bool IsInMenu(RE::UI* a_ui) const;
+    bool IsInBannedMenu(RE::UI* a_ui) const;
 
-    void ToggleHUD(RE::UI* ui);
-    void ToggleMenu(RE::UI* ui);
+    void ToggleHUD(RE::UI* a_ui);
+    void ToggleMenu(RE::UI* a_ui);
 
     bool hudVisible{ true };
     bool menuVisible{ true };
