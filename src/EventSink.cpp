@@ -52,15 +52,23 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
     std::vector<std::string_view> menuNamesOnStack;
     for (auto& [name, entry] : ui->menuMap) {
         menuNames.push_back(name);
-
         if (entry.menu && entry.menu->OnStack()) {
             menuNamesOnStack.push_back(name);
         }
     }
 
+    SKSE::log::debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", a_event->menuName.c_str());
     SKSE::log::debug("Menus: {}.", menuNames);
     SKSE::log::debug("Menus On Stack: {}.", menuNamesOnStack);
-    SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", a_event->menuName.c_str());
+    SKSE::log::debug(
+        "numPausesGame: {}, numItemMenus: {}, numDisablePauseMenu: {}, numAllowSaving: {}, "
+        "numDontHideCursorWhenTopmost: {}, numCustomRendering: {}, numApplicationMenus: {}",
+        ui->numPausesGame, ui->numItemMenus, ui->numDisablePauseMenu, ui->numAllowSaving,
+        ui->numDontHideCursorWhenTopmost, ui->numCustomRendering, ui->numApplicationMenus);
+    SKSE::log::debug("modal: {}, menuSystemVisible: {}, closingAllMenus: {}", ui->modal, ui->menuSystemVisible,
+        ui->closingAllMenus);
+    SKSE::log::debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 #endif
 
     if (!a_event->opening) {
