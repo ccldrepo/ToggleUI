@@ -45,7 +45,7 @@ inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, st
     }
 
     a_target.clear();
-    for (auto& ele : *arr) {
+    for (const auto& ele : *arr) {
         auto value = ele.value<T>();
         if (!value) {
             auto msg = std::format("Invalid {}", a_key);

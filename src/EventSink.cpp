@@ -50,11 +50,11 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
 
     std::vector<std::string_view> menuNames;
     std::vector<std::string_view> menuNamesOnStack;
-    for (auto& entry : ui->menuMap) {
-        menuNames.push_back(entry.first);
-        auto& menu = entry.second.menu;
-        if (menu && menu->OnStack()) {
-            menuNamesOnStack.push_back(entry.first);
+    for (auto& [name, entry] : ui->menuMap) {
+        menuNames.push_back(name);
+
+        if (entry.menu && entry.menu->OnStack()) {
+            menuNamesOnStack.push_back(name);
         }
     }
 
