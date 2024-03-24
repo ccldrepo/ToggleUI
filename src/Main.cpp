@@ -12,7 +12,7 @@ namespace
     {
         auto path = SKSE::log::log_directory();
         if (!path) {
-            SKSE::stl::report_and_fail("Unable to lookup SKSE logs directory."sv);
+            SKSE::stl::report_and_fail("Failed to find SKSE logging directory."sv);
         }
         *path /= SKSE::PluginDeclaration::GetSingleton()->GetName();
         *path += L".log";
