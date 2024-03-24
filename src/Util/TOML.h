@@ -45,6 +45,7 @@ inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, st
     }
 
     a_target.clear();
+    a_target.reserve(arr->size());
     for (const auto& ele : *arr) {
         auto value = ele.value<T>();
         if (!value) {
@@ -69,6 +70,7 @@ template <class T>
 inline void SaveTOMLValue(toml::table& a_table, std::string_view a_key, const std::vector<T>& a_source)
 {
     toml::array arr;
+    arr.reserve(a_source.size());
     for (const auto& ele : a_source) {
         arr.push_back(ele);
     }
