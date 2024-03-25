@@ -58,7 +58,7 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
     }
 
     SKSE::log::debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", a_event->menuName.c_str());
+    SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", std::string_view{ a_event->menuName });
     SKSE::log::debug("Menus: {}.", menuNames);
     SKSE::log::debug("Menus On Stack: {}.", menuNamesOnStack);
     SKSE::log::debug(
