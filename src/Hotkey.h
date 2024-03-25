@@ -1,8 +1,6 @@
 #pragma once
 
-#include <cstdint>
-
-#include <RE/Skyrim.h>
+#include <PCH.h>
 
 class HotkeyContext
 {

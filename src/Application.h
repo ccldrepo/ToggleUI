@@ -3,7 +3,7 @@
 #include <PCH.h>
 
 #include "Configuration.h"
-#include "Util/Hotkey.h"
+#include "Hotkey.h"
 #include "Util/Singleton.h"
 
 class Application final : public Singleton<Application>

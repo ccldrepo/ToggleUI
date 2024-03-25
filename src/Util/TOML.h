@@ -40,7 +40,7 @@ inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, st
 
     auto arr = node->as_array();
     if (!arr) {
-        auto msg = std::format("{} is not array", a_key);
+        auto msg = std::format("{} is not an array", a_key);
         throw TOMLError(msg);
     }
 
