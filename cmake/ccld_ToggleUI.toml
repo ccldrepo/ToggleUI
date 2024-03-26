@@ -1,41 +1,45 @@
 # The hotkey code, see:
 # https://wiki.nexusmods.com/index.php/DirectX_Scancodes_And_How_To_Use_Them
+# https://ck.uesp.net/wiki/Input_Script
+#
+# Default: 64 (F6)
 iHotkey = 64
 
 # The list of HUD that can be toggled. Remove HUD names from the list if you
 # don't want to toggle those HUD.
 slHUDNames = [
-    'HUD Menu',
-    'BTPS Menu',
-    'CastingBar',
-    'Durability Menu',
-    'Floating Damage V2',
-    'LootMenu',
-    'MiniMapMenu',
-    'oxygenMeter2',
-    'TrueHUD',
+    "HUD Menu",
+    "BTPS Menu",
+    "CastingBar",
+    "Durability Menu",
+    "Floating Damage V2",
+    "LootMenu",
+    "MiniMapMenu",
+    "oxygenMeter2",
+    "TrueHUD",
 ]
 
+# The list of menus that can be toggled.
 slMenuNames = [
-    'BarterMenu',
-    'Book Menu',
-    'Console',
-    'ContainerMenu',
-    'Crafting Menu',
-    'Dialogue Menu',
-    'FavoritesMenu',
-    'GiftMenu',
-    'InventoryMenu',
-    'Journal Menu',
-    'Lockpicking Menu',
-    'MagicMenu',
-    'MapMenu',
-    'RaceSex Menu',
-    'Sleep/Wait Menu',
-    'StatsMenu',
-    'Training Menu',
-    'Tutorial Menu',
-    'TweenMenu',
+    "BarterMenu",
+    "Book Menu",
+    "Console",
+    "ContainerMenu",
+    "Crafting Menu",
+    "Dialogue Menu",
+    "FavoritesMenu",
+    "GiftMenu",
+    "InventoryMenu",
+    "Journal Menu",
+    "Lockpicking Menu",
+    "MagicMenu",
+    "MapMenu",
+    "RaceSex Menu",
+    "Sleep/Wait Menu",
+    "StatsMenu",
+    "Training Menu",
+    "Tutorial Menu",
+    "TweenMenu",
 ]
 
 # Move menu names from slMenuNames to slBannedMenuNames if you want to disable
