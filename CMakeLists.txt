@@ -25,6 +25,8 @@ configure_file(
     COPYONLY
 )
 
+# --- Declare Sources ----------------------------------------------------------
+
 include(cmake/headerlist.cmake)
 include(cmake/sourcelist.cmake)
 
@@ -36,7 +38,7 @@ source_group(
         ${sources}
 )
 
-# ---- Declare Dependencies ----
+# --- Declare Dependencies -----------------------------------------------------
 
 if(NOT CMAKE_PREFIX_PATH AND DEFINED ENV{DEV_INSTALL_PATH})
     cmake_path(SET CMAKE_PREFIX_PATH "$ENV{DEV_INSTALL_PATH}/${CMAKE_BUILD_TYPE}")
@@ -47,7 +49,7 @@ find_package(fmt REQUIRED)
 find_package(spdlog REQUIRED)
 find_package(tomlplusplus REQUIRED)
 
-# ---- Declare Targets ----
+# --- Declare Targets ----------------------------------------------------------
 
 add_commonlibsse_plugin(
     "${PROJECT_NAME}"
