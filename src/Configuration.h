@@ -13,7 +13,7 @@ public:
 
     struct Default
     {
-        static constexpr uint32_t iHotkey{ RE::DirectInput8::DIK_F6 };
+        static constexpr uint32_t iHotkey{ REX::W32::DIK_F6 };
 
         static constexpr std::array slHUDNames{
             RE::HUDMenu::MENU_NAME,
