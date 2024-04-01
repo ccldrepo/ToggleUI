@@ -3,10 +3,14 @@
 #include <format>
 #include <stdexcept>
 #include <string_view>
+#include <type_traits>
 #include <utility>
 #include <vector>
 
 #include <toml++/toml.hpp>
+
+template <class T>
+concept TOMLScalar = std::is_arithmetic_v<T> || std::is_same_v<T, std::string>;
 
 class TOMLError : public std::runtime_error
 {
@@ -14,7 +18,7 @@ public:
     using std::runtime_error::runtime_error;
 };
 
-template <class T>
+template <TOMLScalar T>
 inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, T& a_target)
 {
     auto node = a_table.get(a_key);
@@ -30,7 +34,7 @@ inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, T&
     a_target = std::move(*value);
 }
 
-template <class T>
+template <TOMLScalar T>
 inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, std::vector<T>& a_target)
 {
     auto node = a_table.get(a_key);
@@ -56,7 +60,7 @@ inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, st
     }
 }
 
-template <class T>
+template <TOMLScalar T>
 inline void SaveTOMLValue(toml::table& a_table, std::string_view a_key, const T& a_source)
 {
     auto [pos, ok] = a_table.insert(a_key, a_source);
@@ -66,7 +70,7 @@ inline void SaveTOMLValue(toml::table& a_table, std::string_view a_key, const T&
     }
 }
 
-template <class T>
+template <TOMLScalar T>
 inline void SaveTOMLValue(toml::table& a_table, std::string_view a_key, const std::vector<T>& a_source)
 {
     toml::array arr;
