@@ -2,7 +2,7 @@
 
 namespace
 {
-    bool IsMenuOpen(RE::UI* a_ui, const std::vector<std::string>& a_menuNames)
+    inline bool IsAnyOfMenuOpen(RE::UI* a_ui, const std::vector<std::string>& a_menuNames)
     {
         for (std::string_view menuName : a_menuNames) {
             if (a_ui->IsMenuOpen(menuName)) {
@@ -10,6 +10,15 @@ namespace
             }
         }
         return false;
+    }
+
+    inline bool IsInGameplayContext()
+    {
+        auto controlMap = RE::ControlMap::GetSingleton();
+        if (controlMap->contextPriorityStack.empty()) {
+            return false;
+        }
+        return controlMap->contextPriorityStack.back() == RE::UserEvents::INPUT_CONTEXT_ID::kGameplay;
     }
 }
 
@@ -34,23 +43,28 @@ void Application::ResetUI()
 void Application::ToggleUI()
 {
     auto ui = RE::UI::GetSingleton();
-    if (IsInBannedMenu(ui)) {
+    if (IsInGameplayContext()) {
+        ToggleHUD(ui);
+        RE::PlaySound("UIMenuFocus");
+    } else if (IsInBannedMenu(ui)) {
         // Disable toggle.
     } else if (IsInMenu(ui)) {
         ToggleMenu(ui);
+        RE::PlaySound("UIMenuFocus");
     } else {
         ToggleHUD(ui);
+        RE::PlaySound("UIMenuFocus");
     }
 }
 
 bool Application::IsInMenu(RE::UI* a_ui) const  //
 {
-    return IsMenuOpen(a_ui, config->slMenuNames);
+    return IsAnyOfMenuOpen(a_ui, config->slMenuNames);
 }
 
 bool Application::IsInBannedMenu(RE::UI* a_ui) const  //
 {
-    return IsMenuOpen(a_ui, config->slBannedMenuNames);
+    return IsAnyOfMenuOpen(a_ui, config->slBannedMenuNames);
 }
 
 void Application::ToggleHUD(RE::UI* a_ui)
@@ -62,12 +76,10 @@ void Application::ToggleHUD(RE::UI* a_ui)
             uiMovie->SetVariable("_root._alpha", value);
         }
     }
-    RE::PlaySound("UIMenuFocus");
 }
 
 void Application::ToggleMenu(RE::UI* a_ui)
 {
     menuVisible = !menuVisible;
     a_ui->ShowMenus(menuVisible);
-    RE::PlaySound("UIMenuFocus");
 }
