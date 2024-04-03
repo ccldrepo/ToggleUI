@@ -57,17 +57,18 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
         }
     }
 
+    auto controlMap = RE::ControlMap::GetSingleton();
+
+    std::vector<uint32_t> contextPriorityStack;
+    for (auto inputContext : controlMap->contextPriorityStack) {
+        contextPriorityStack.push_back(inputContext);
+    }
+
     SKSE::log::debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
     SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", std::string_view{ a_event->menuName });
     SKSE::log::debug("Menus: {}.", menuNames);
     SKSE::log::debug("Menus On Stack: {}.", menuNamesOnStack);
-    SKSE::log::debug(
-        "numPausesGame: {}, numItemMenus: {}, numDisablePauseMenu: {}, numAllowSaving: {}, "
-        "numDontHideCursorWhenTopmost: {}, numCustomRendering: {}, numApplicationMenus: {}",
-        ui->numPausesGame, ui->numItemMenus, ui->numDisablePauseMenu, ui->numAllowSaving,
-        ui->numDontHideCursorWhenTopmost, ui->numCustomRendering, ui->numApplicationMenus);
-    SKSE::log::debug("modal: {}, menuSystemVisible: {}, closingAllMenus: {}", ui->modal, ui->menuSystemVisible,
-        ui->closingAllMenus);
+    SKSE::log::debug("Context Priority Stack: {}.", contextPriorityStack);
     SKSE::log::debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 #endif
 
