@@ -37,3 +37,21 @@ public:
 private:
     MenuOpenCloseEventSink() = default;
 };
+
+class MenuModeChangeEventSink final :
+    public Singleton<MenuModeChangeEventSink>,
+    public RE::BSTEventSink<RE::MenuModeChangeEvent>
+{
+    friend class Singleton<MenuModeChangeEventSink>;
+
+public:
+    using Event = RE::MenuModeChangeEvent;
+    using EventSource = RE::BSTEventSource<Event>;
+
+    static void Register();
+
+    RE::BSEventNotifyControl ProcessEvent(const Event* a_event, EventSource* a_eventSource) override;
+
+private:
+    MenuModeChangeEventSink() = default;
+};

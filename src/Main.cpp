@@ -18,7 +18,6 @@ namespace
         *path += L".log";
 
         auto logger = spdlog::basic_logger_mt("Global", path->string(), true);
-
 #ifndef _DEBUG
         logger->set_level(spdlog::level::info);
         logger->flush_on(spdlog::level::info);
@@ -37,6 +36,9 @@ namespace
         case SKSE::MessagingInterface::kInputLoaded:
             InputEventSink::Register();
             MenuOpenCloseEventSink::Register();
+#ifdef _DEBUG
+            MenuModeChangeEventSink::Register();
+#endif
             break;
         default:
             break;
