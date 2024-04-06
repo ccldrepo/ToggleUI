@@ -1,6 +1,6 @@
 # Toggle UI
 
-SKSE Plugin that allows users to toggle UI.
+SKSE plugin that allows users to toggle UI.
 
 ## Build Requirements
 
