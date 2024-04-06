@@ -23,6 +23,9 @@ public:
             "Floating Damage V2"sv,
             "LootMenu"sv,
             "MiniMapMenu"sv,
+            "OStimAlignMenu"sv,
+            "OstimSceneMenu"sv,
+            "OStimSearchMenu"sv,
             "oxygenMeter2"sv,
             "TrueHUD"sv,
         };
