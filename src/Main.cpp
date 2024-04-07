@@ -36,9 +36,6 @@ namespace
         case SKSE::MessagingInterface::kInputLoaded:
             InputEventSink::Register();
             MenuOpenCloseEventSink::Register();
-#ifdef _DEBUG
-            MenuModeChangeEventSink::Register();
-#endif
             break;
         default:
             break;

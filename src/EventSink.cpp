@@ -80,23 +80,3 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
     }
     return RE::BSEventNotifyControl::kContinue;
 }
-
-void MenuModeChangeEventSink::Register()
-{
-    auto ui = RE::UI::GetSingleton();
-    ui->AddEventSink(GetSingleton());
-    SKSE::log::info("Registered menu mode change event.");
-}
-
-RE::BSEventNotifyControl MenuModeChangeEventSink::ProcessEvent(const Event* a_event, [[maybe_unused]] EventSource*)
-{
-    if (!a_event) {
-        return RE::BSEventNotifyControl::kContinue;
-    }
-
-#ifdef _DEBUG
-    SKSE::log::debug("Menu: {}, Mode: {}.", std::string_view{ a_event->menu }, a_event->mode.underlying());
-#endif
-
-    return RE::BSEventNotifyControl::kContinue;
-}
