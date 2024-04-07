@@ -6,10 +6,12 @@
 
 void Configuration::Init()
 {
+    auto config = GetSingleton();
     if (std::filesystem::exists(path)) {
-        Load();
+        config->Load();
     } else {
-        Save();  // Export default config if config file not exists.
+        // Export default config if config file not exists.
+        config->Save();
     }
 }
 

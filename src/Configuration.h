@@ -9,7 +9,7 @@ class Configuration final : public Singleton<Configuration>
     friend class Singleton<Configuration>;
 
 public:
-    void Init();
+    static void Init();
 
     struct Default
     {

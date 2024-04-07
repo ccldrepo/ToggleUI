@@ -63,7 +63,7 @@ SKSEPluginLoad(const SKSE::LoadInterface* a_skse)
 
     SKSE::Init(a_skse);
 
-    Configuration::GetSingleton()->Init();
+    Configuration::Init();
 
     auto messaging = SKSE::GetMessagingInterface();
     messaging->RegisterListener(OnMessage);
