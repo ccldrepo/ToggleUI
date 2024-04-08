@@ -3,7 +3,6 @@
 #include <PCH.h>
 
 #include "Configuration.h"
-#include "Hotkey.h"
 #include "Util/Singleton.h"
 
 class Application final : public Singleton<Application>
@@ -11,11 +10,6 @@ class Application final : public Singleton<Application>
     friend class Singleton<Application>;
 
 public:
-    HotkeyContext NewHotkeyContext() const  //
-    {
-        return HotkeyContext{ config->iHotkey };
-    }
-
     bool IsMenu(std::string_view a_menuName) const;
 
     void ResetUI();

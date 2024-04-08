@@ -1,6 +1,7 @@
 #include "EventSink.h"
 
 #include "Application.h"
+#include "Hotkey.h"
 
 void InputEventSink::Register()
 {
@@ -19,16 +20,8 @@ RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[ma
         return RE::BSEventNotifyControl::kContinue;
     }
 
-    auto app = Application::GetSingleton();
-    auto hotkey = app->NewHotkeyContext();
+    HotkeyManager::Process(a_event);
 
-    for (auto event = *a_event; event; event = event->next) {
-        hotkey.Update(event->AsButtonEvent());
-    }
-
-    if (hotkey.hasKey) {
-        app->ToggleUI();
-    }
     return RE::BSEventNotifyControl::kContinue;
 }
 
