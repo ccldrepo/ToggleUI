@@ -57,6 +57,30 @@ void Application::ResetUI()
     }
 }
 
+void Application::ToggleCompass() const
+{
+    const char* path = "_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha";
+
+    auto ui = RE::UI::GetSingleton();
+    auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME);
+
+    double value = uiMovie->GetVariableDouble(path);
+    SKSE::log::info("compass: {}", value);
+    uiMovie->SetVariableDouble(path, value < 1.0 ? 100.0 : 0.0);
+}
+
+void Application::ToggleSubtitle() const
+{
+    const char* path = "_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha";
+
+    auto ui = RE::UI::GetSingleton();
+    auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME);
+
+    double value = uiMovie->GetVariableDouble(path);
+    SKSE::log::info("subtitle: {}", value);
+    uiMovie->SetVariableDouble(path, value < 1.0 ? 100.0 : 0.0);
+}
+
 bool Application::IsInMenu(RE::UI* a_ui) const  //
 {
     return IsAnyOfMenuOpen(a_ui, config->slMenuNames);

@@ -46,6 +46,8 @@ void Configuration::LoadImpl()
     auto data = toml::parse_file(path);
 
     LoadTOMLValue(data, "iHotkey"sv, iHotkey);
+    LoadTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
+    LoadTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
 
     LoadTOMLValue(data, "slHUDNames"sv, slHUDNames);
     LoadTOMLValue(data, "slMenuNames"sv, slMenuNames);
@@ -57,6 +59,8 @@ void Configuration::SaveImpl() const
     toml::table data;
 
     SaveTOMLValue(data, "iHotkey"sv, iHotkey);
+    SaveTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
+    SaveTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
 
     SaveTOMLValue(data, "slHUDNames"sv, slHUDNames);
     SaveTOMLValue(data, "slMenuNames"sv, slMenuNames);

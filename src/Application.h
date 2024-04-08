@@ -15,6 +15,9 @@ public:
     void ToggleUI();
     void ResetUI();
 
+    void ToggleCompass() const;
+    void ToggleSubtitle() const;
+
 private:
     Application() : config(Configuration::GetSingleton()) {}
 
