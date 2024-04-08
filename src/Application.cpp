@@ -32,14 +32,6 @@ bool Application::IsMenu(std::string_view a_menuName) const
     return false;
 }
 
-void Application::ResetUI()
-{
-    if (!menuVisible) {
-        auto ui = RE::UI::GetSingleton();
-        ToggleMenu(ui);
-    }
-}
-
 void Application::ToggleUI()
 {
     auto ui = RE::UI::GetSingleton();
@@ -54,6 +46,14 @@ void Application::ToggleUI()
     } else {
         ToggleHUD(ui);
         RE::PlaySound("UIMenuFocus");
+    }
+}
+
+void Application::ResetUI()
+{
+    if (!menuVisible) {
+        auto ui = RE::UI::GetSingleton();
+        ToggleMenu(ui);
     }
 }
 

@@ -34,6 +34,7 @@ slMenuNames = [
     "GiftMenu",
     "InventoryMenu",
     "Journal Menu",
+    "LevelUp Menu",
     "Lockpicking Menu",
     "MagicMenu",
     "MapMenu",

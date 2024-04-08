@@ -41,6 +41,7 @@ public:
             RE::GiftMenu::MENU_NAME,
             RE::InventoryMenu::MENU_NAME,
             RE::JournalMenu::MENU_NAME,
+            RE::LevelUpMenu::MENU_NAME,
             RE::LockpickingMenu::MENU_NAME,
             RE::MagicMenu::MENU_NAME,
             RE::MapMenu::MENU_NAME,

@@ -12,8 +12,8 @@ class Application final : public Singleton<Application>
 public:
     bool IsMenu(std::string_view a_menuName) const;
 
-    void ResetUI();
     void ToggleUI();
+    void ResetUI();
 
 private:
     Application() : config(Configuration::GetSingleton()) {}
@@ -27,5 +27,5 @@ private:
     bool hudVisible{ true };
     bool menuVisible{ true };
 
-    Configuration* config;
+    const Configuration* config;
 };
