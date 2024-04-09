@@ -5,6 +5,16 @@
 # Default: 64 (F6)
 iHotkey = 64
 
+# Change hotkey behavior to toggle compass only.
+#
+# Default: 54 (Right Shift)
+iModifierCompass = 54
+
+# Change hotkey behavior to toggle subtitle only.
+#
+# Default: 157 (Right Ctrl)
+iModifierSubtitle = 157
+
 # The list of HUD that can be toggled. Remove HUD names from the list if you
 # don't want to toggle those HUD.
 slHUDNames = [
