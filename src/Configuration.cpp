@@ -52,6 +52,10 @@ void Configuration::LoadImpl()
     LoadTOMLValue(data, "slHUDNames"sv, slHUDNames);
     LoadTOMLValue(data, "slMenuNames"sv, slMenuNames);
     LoadTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
+
+    // Make sure menu names are ordered, so that binary search can be used.
+    std::ranges::sort(slMenuNames);
+    std::ranges::sort(slBannedMenuNames);
 }
 
 void Configuration::SaveImpl() const

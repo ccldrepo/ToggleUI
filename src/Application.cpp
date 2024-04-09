@@ -24,12 +24,7 @@ namespace
 
 bool Application::IsMenu(std::string_view a_menuName) const
 {
-    for (std::string_view menuName : config->slMenuNames) {
-        if (menuName == a_menuName) {
-            return true;
-        }
-    }
-    return false;
+    return std::ranges::binary_search(config->slMenuNames, a_menuName);
 }
 
 void Application::ToggleUI()
