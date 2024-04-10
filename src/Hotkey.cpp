@@ -5,7 +5,7 @@
 
 namespace
 {
-    uint32_t RemapKey(uint32_t a_key, RE::INPUT_DEVICE a_device)
+    std::uint32_t RemapKey(std::uint32_t a_key, RE::INPUT_DEVICE a_device)
     {
         switch (a_device) {
         case RE::INPUT_DEVICE::kKeyboard:
@@ -24,19 +24,19 @@ namespace
 
     struct HotkeyContext
     {
-        constexpr HotkeyContext(uint32_t a_targetKey, uint32_t a_targetModifierCompass,
-            uint32_t a_targetModifierSubtitle) noexcept :
-            targetKey(a_targetKey),
+        constexpr HotkeyContext(std::uint32_t a_targetHotkey, std::uint32_t a_targetModifierCompass,
+            std::uint32_t a_targetModifierSubtitle) noexcept :
+            targetHotkey(a_targetHotkey),
             targetModifierCompass(a_targetModifierCompass), targetModifierSubtitle(a_targetModifierSubtitle)
         {}
 
         void Update(const RE::ButtonEvent* a_button);
 
-        const uint32_t targetKey;
-        const uint32_t targetModifierCompass;
-        const uint32_t targetModifierSubtitle;
+        const std::uint32_t targetHotkey;
+        const std::uint32_t targetModifierCompass;
+        const std::uint32_t targetModifierSubtitle;
 
-        bool hasKey{ false };
+        bool hasHotkey{ false };
         bool hasModifierCompass{ false };
         bool hasModifierSubtitle{ false };
     };
@@ -48,14 +48,14 @@ namespace
         }
 
         if (a_button->IsPressed()) {
-            uint32_t key = RemapKey(a_button->GetIDCode(), a_button->GetDevice());
+            auto key = RemapKey(a_button->GetIDCode(), a_button->GetDevice());
             if (key == targetModifierCompass) {
                 hasModifierCompass = true;
             } else if (key == targetModifierSubtitle) {
                 hasModifierSubtitle = true;
             } else if (a_button->IsDown()) {
-                if (key == targetKey) {
-                    hasKey = true;
+                if (key == targetHotkey) {
+                    hasHotkey = true;
                 }
             }
         }
@@ -69,12 +69,16 @@ void HotkeyManager::Process(const RE::InputEvent* const* a_event)
     HotkeyContext ctx{ config->iHotkey, config->iModifierCompass, config->iModifierSubtitle };
 
     for (auto event = *a_event; event; event = event->next) {
-        if (auto button = event->AsButtonEvent()) {
-            ctx.Update(button);
+        switch (event->GetEventType()) {
+        case RE::INPUT_EVENT_TYPE::kButton:
+            ctx.Update(static_cast<const RE::ButtonEvent*>(event));
+            break;
+        default:
+            break;
         }
     }
 
-    if (ctx.hasKey) {
+    if (ctx.hasHotkey) {
         auto app = Application::GetSingleton();
         if (ctx.hasModifierCompass) {
             app->ToggleCompass();
