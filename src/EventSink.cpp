@@ -5,9 +5,12 @@
 
 void InputEventSink::Register()
 {
-    auto manager = RE::BSInputDeviceManager::GetSingleton();
-    manager->AddEventSink(GetSingleton());
-    SKSE::log::info("Registered input event.");
+    if (auto manager = RE::BSInputDeviceManager::GetSingleton()) {
+        manager->AddEventSink(GetSingleton());
+        SKSE::log::info("Successfully registered input event.");
+    } else {
+        SKSE::log::error("Failed to register input event.");
+    }
 }
 
 RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[maybe_unused]] EventSource*)
@@ -27,9 +30,12 @@ RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[ma
 
 void MenuOpenCloseEventSink::Register()
 {
-    auto ui = RE::UI::GetSingleton();
-    ui->AddEventSink(GetSingleton());
-    SKSE::log::info("Registered menu open/close event.");
+    if (auto ui = RE::UI::GetSingleton()) {
+        ui->AddEventSink(GetSingleton());
+        SKSE::log::info("Successfully registered menu open/close event.");
+    } else {
+        SKSE::log::error("Failed to register menu open/close event.");
+    }
 }
 
 RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_event, [[maybe_unused]] EventSource*)
