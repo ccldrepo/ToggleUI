@@ -58,17 +58,17 @@ RE::BSEventNotifyControl MenuOpenCloseEventSink::ProcessEvent(const Event* a_eve
 
     auto controlMap = RE::ControlMap::GetSingleton();
 
-    std::vector<uint32_t> contextPriorityStack;
+    std::vector<std::uint32_t> contextPriorityStack;
     for (auto inputContext : controlMap->contextPriorityStack) {
         contextPriorityStack.push_back(inputContext);
     }
 
-    SKSE::log::debug(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
-    SKSE::log::debug("{} {}.", a_event->opening ? "Open" : "Close", std::string_view{ a_event->menuName });
-    SKSE::log::debug("Menus: {}.", menuNames);
-    SKSE::log::debug("Menus On Stack: {}.", menuNamesOnStack);
-    SKSE::log::debug("Context Priority Stack: {}.", contextPriorityStack);
-    SKSE::log::debug("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
+    SKSE::log::trace(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>");
+    SKSE::log::trace("{} {}.", a_event->opening ? "Open" : "Close", std::string_view{ a_event->menuName });
+    SKSE::log::trace("Menus: {}.", menuNames);
+    SKSE::log::trace("Menus On Stack: {}.", menuNamesOnStack);
+    SKSE::log::trace("Context Priority Stack: {}.", contextPriorityStack);
+    SKSE::log::trace("<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<");
 #endif
 
     if (!a_event->opening) {
