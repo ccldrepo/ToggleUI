@@ -52,28 +52,14 @@ void Application::ResetUI()
     }
 }
 
-void Application::ToggleCompass() const
+void Application::ToggleCompass() const  //
 {
-    const char* path = "_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha";
-
-    auto ui = RE::UI::GetSingleton();
-    auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME);
-
-    double value = uiMovie->GetVariableDouble(path);
-    SKSE::log::info("compass: {}", value);
-    uiMovie->SetVariableDouble(path, value < 1.0 ? 100.0 : 0.0);
+    ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha");
 }
 
-void Application::ToggleSubtitle() const
+void Application::ToggleSubtitle() const  //
 {
-    const char* path = "_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha";
-
-    auto ui = RE::UI::GetSingleton();
-    auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME);
-
-    double value = uiMovie->GetVariableDouble(path);
-    SKSE::log::info("subtitle: {}", value);
-    uiMovie->SetVariableDouble(path, value < 1.0 ? 100.0 : 0.0);
+    ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
 }
 
 bool Application::IsInMenu(RE::UI* a_ui) const  //
@@ -84,6 +70,11 @@ bool Application::IsInMenu(RE::UI* a_ui) const  //
 bool Application::IsInBannedMenu(RE::UI* a_ui) const  //
 {
     return IsAnyOfMenuOpen(a_ui, config->slBannedMenuNames);
+}
+
+bool Application::IsInMenuContext(RE::UI* a_ui) const
+{
+    return !IsInGameplayContext() && (IsInMenu(a_ui) || IsInBannedMenu(a_ui));
 }
 
 void Application::ToggleHUD(RE::UI* a_ui)
@@ -101,4 +92,18 @@ void Application::ToggleMenu(RE::UI* a_ui)
 {
     menuVisible = !menuVisible;
     a_ui->ShowMenus(menuVisible);
+}
+
+void Application::ToggleHUDElement(const char* a_pathToVar) const
+{
+    auto ui = RE::UI::GetSingleton();
+    if (IsInMenuContext(ui)) {
+        return;
+    }
+
+    if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
+        double value = uiMovie->GetVariableDouble(a_pathToVar);
+        uiMovie->SetVariableDouble(a_pathToVar, value < 1.0 ? 100.0 : 0.0);
+        RE::PlaySound("UIMenuFocus");
+    }
 }

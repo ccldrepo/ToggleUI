@@ -23,9 +23,12 @@ private:
 
     bool IsInMenu(RE::UI* a_ui) const;
     bool IsInBannedMenu(RE::UI* a_ui) const;
+    bool IsInMenuContext(RE::UI* a_ui) const;
 
     void ToggleHUD(RE::UI* a_ui);
     void ToggleMenu(RE::UI* a_ui);
+
+    void ToggleHUDElement(const char* a_pathToVar) const;
 
     bool hudVisible{ true };
     bool menuVisible{ true };
