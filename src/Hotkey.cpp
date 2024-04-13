@@ -5,7 +5,7 @@
 
 namespace
 {
-    std::uint32_t RemapKey(std::uint32_t a_key, RE::INPUT_DEVICE a_device)
+    inline std::uint32_t RemapKey(std::uint32_t a_key, RE::INPUT_DEVICE a_device)
     {
         switch (a_device) {
         case RE::INPUT_DEVICE::kKeyboard:
@@ -69,12 +69,8 @@ void HotkeyManager::Process(const RE::InputEvent* const* a_event)
     HotkeyContext ctx{ config->iHotkey, config->iModifierCompass, config->iModifierSubtitle };
 
     for (auto event = *a_event; event; event = event->next) {
-        switch (event->GetEventType()) {
-        case RE::INPUT_EVENT_TYPE::kButton:
-            ctx.Update(static_cast<const RE::ButtonEvent*>(event));
-            break;
-        default:
-            break;
+        if (auto button = event->AsButtonEvent()) {
+            ctx.Update(button);
         }
     }
 
