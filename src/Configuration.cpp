@@ -73,5 +73,3 @@ void Configuration::SaveImpl() const
     std::ofstream file{ path };
     file << data << std::endl;
 }
-
-const std::string Configuration::path{ "Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };

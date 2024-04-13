@@ -73,5 +73,5 @@ private:
     void LoadImpl();
     void SaveImpl() const;
 
-    static const std::string path;
+    static inline const std::string path{ "Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
 };
