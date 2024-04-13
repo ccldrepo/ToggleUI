@@ -77,6 +77,8 @@ if(MSVC)
         "${PROJECT_NAME}"
         PRIVATE
             /permissive-
+            /sdl
+            /utf-8
             /W4
             /Zc:preprocessor
     )
