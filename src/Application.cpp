@@ -15,9 +15,11 @@ namespace
     inline bool IsInGameplayContext()
     {
         // It seems like ControlMap is broken on AE.
+        // https://github.com/CharmedBaryon/CommonLibSSE-NG/issues/89
         if (REL::Module::IsAE()) {
             return false;
         }
+
         auto controlMap = RE::ControlMap::GetSingleton();
         if (controlMap->contextPriorityStack.empty()) {
             return false;
