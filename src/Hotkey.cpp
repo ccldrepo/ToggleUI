@@ -22,6 +22,47 @@ namespace
         return a_key;
     }
 
+    class KeyCombo
+    {
+    public:
+        constexpr KeyCombo(std::uint32_t a_targetHotkey, std::uint32_t a_targetModifier) noexcept :
+            targetHotkey(a_targetHotkey), targetModifier(a_targetModifier)
+        {}
+
+        bool IsActive() const noexcept  //
+        {
+            return (hasHotkey && hasModifier) || (hasHotkey && targetModifier == 0);
+        }
+
+        void Update(std::uint32_t a_key) noexcept
+        {
+            if (targetHotkey == 0) {
+                return;
+            }
+
+            if (a_key == targetHotkey) {
+                hasHotkey = true;
+                return;
+            }
+
+            if (targetModifier == 0) {
+                return;
+            }
+
+            if (a_key == targetModifier) {
+                hasModifier = true;
+                return;
+            }
+        }
+
+    private:
+        const std::uint32_t targetHotkey;
+        const std::uint32_t targetModifier;
+
+        bool hasHotkey{ false };
+        bool hasModifier{ false };
+    };
+
     struct HotkeyContext
     {
         constexpr HotkeyContext(std::uint32_t a_targetHotkey, std::uint32_t a_targetModifierCompass,
