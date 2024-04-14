@@ -99,16 +99,20 @@ namespace
         {
             auto app = Application::GetSingleton();
 
-            if (hotkey.IsActive()) {
-                app->ToggleUI();
-            }
+            bool lpt = false;  // low priority toggle
 
             if (hotkeyCompass.IsActive()) {
                 app->ToggleCompass();
+                lpt = true;
             }
 
             if (hotkeySubtitle.IsActive()) {
                 app->ToggleSubtitle();
+                lpt = true;
+            }
+
+            if (!lpt && hotkey.IsActive()) {
+                app->ToggleUI();
             }
         }
 
