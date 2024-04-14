@@ -36,25 +36,15 @@ namespace
 
         void UpdateDown(std::uint32_t a_key) noexcept
         {
-            if (targetHotkey == 0) {
-                return;
-            }
-
-            if (a_key == targetHotkey) {
+            if (targetHotkey != 0 && a_key == targetHotkey) {
                 hasHotkey = true;
-                return;
             }
         }
 
         void UpdatePressed(std::uint32_t a_key) noexcept
         {
-            if (targetModifier == 0) {
-                return;
-            }
-
-            if (a_key == targetModifier) {
+            if (targetModifier != 0 && a_key == targetModifier) {
                 hasModifier = true;
-                return;
             }
         }
 
@@ -76,7 +66,7 @@ namespace
 
         void Update(const RE::ButtonEvent* a_button)
         {
-            if (!a_button || !a_button->HasIDCode()) {
+            if (!a_button->HasIDCode()) {
                 return;
             }
 
