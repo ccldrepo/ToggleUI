@@ -1,17 +1,28 @@
-# The hotkey code, see:
+# For hotkey code reference, see:
 # https://wiki.nexusmods.com/index.php/DirectX_Scancodes_And_How_To_Use_Them
 # https://ck.uesp.net/wiki/Input_Script
 #
+# To disable a hotkey, set iHotkeyXXX and iModifierXXX to 0.
+# To disable a modifier, set iModifierXXX to 0.
+
+# Toggle UI hotkey.
+#
 # Default: 64 (F6)
 iHotkey = 64
+# Default: 0 (Disabled)
+iModifier = 0
 
-# Change hotkey behavior to toggle compass only.
+# Toggle compass hotkey.
 #
+# Default: 64 (F6)
+iHotkeyCompass = 64
 # Default: 54 (Right Shift)
 iModifierCompass = 54
 
-# Change hotkey behavior to toggle subtitle only.
+# Toggle subtitle hotkey.
 #
+# Default: 64 (F6)
+iHotkeySubtitle = 64
 # Default: 157 (Right Ctrl)
 iModifierSubtitle = 157
 
