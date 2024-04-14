@@ -14,7 +14,12 @@ public:
     struct Default
     {
         static constexpr std::uint32_t iHotkey{ REX::W32::DIK_F6 };
+        static constexpr std::uint32_t iModifier{ 0 };
+
+        static constexpr std::uint32_t iHotkeyCompass{ REX::W32::DIK_F6 };
         static constexpr std::uint32_t iModifierCompass{ REX::W32::DIK_RSHIFT };
+
+        static constexpr std::uint32_t iHotkeySubtitle{ REX::W32::DIK_F6 };
         static constexpr std::uint32_t iModifierSubtitle{ REX::W32::DIK_RCONTROL };
 
         static constexpr std::array slHUDNames{
@@ -57,7 +62,12 @@ public:
     };
 
     std::uint32_t iHotkey{ Default::iHotkey };
+    std::uint32_t iModifier{ Default::iModifier };
+
+    std::uint32_t iHotkeyCompass{ Default::iHotkeyCompass };
     std::uint32_t iModifierCompass{ Default::iModifierCompass };
+
+    std::uint32_t iHotkeySubtitle{ Default::iHotkeySubtitle };
     std::uint32_t iModifierSubtitle{ Default::iModifierSubtitle };
 
     std::vector<std::string> slHUDNames{ Default::slHUDNames.begin(), Default::slHUDNames.end() };

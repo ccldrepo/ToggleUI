@@ -34,7 +34,7 @@ namespace
             return (hasHotkey && hasModifier) || (hasHotkey && targetModifier == 0);
         }
 
-        void Update(std::uint32_t a_key) noexcept
+        void UpdateDown(std::uint32_t a_key) noexcept
         {
             if (targetHotkey == 0) {
                 return;
@@ -44,7 +44,10 @@ namespace
                 hasHotkey = true;
                 return;
             }
+        }
 
+        void UpdatePressed(std::uint32_t a_key) noexcept
+        {
             if (targetModifier == 0) {
                 return;
             }
@@ -63,51 +66,64 @@ namespace
         bool hasModifier{ false };
     };
 
-    struct HotkeyContext
+    class HotkeyContext
     {
-        constexpr HotkeyContext(std::uint32_t a_targetHotkey, std::uint32_t a_targetModifierCompass,
-            std::uint32_t a_targetModifierSubtitle) noexcept :
-            targetHotkey(a_targetHotkey),
-            targetModifierCompass(a_targetModifierCompass), targetModifierSubtitle(a_targetModifierSubtitle)
+    public:
+        HotkeyContext(const Configuration* config) :
+            hotkey(config->iHotkey, config->iModifier), hotkeyCompass(config->iHotkeyCompass, config->iModifierCompass),
+            hotkeySubtitle(config->iHotkeySubtitle, config->iModifierSubtitle)
         {}
 
-        void Update(const RE::ButtonEvent* a_button);
+        void Update(const RE::ButtonEvent* a_button)
+        {
+            if (!a_button || !a_button->HasIDCode()) {
+                return;
+            }
 
-        const std::uint32_t targetHotkey;
-        const std::uint32_t targetModifierCompass;
-        const std::uint32_t targetModifierSubtitle;
+            if (a_button->IsPressed()) {
+                auto key = RemapKey(a_button->GetIDCode(), a_button->GetDevice());
 
-        bool hasHotkey{ false };
-        bool hasModifierCompass{ false };
-        bool hasModifierSubtitle{ false };
-    };
+                hotkey.UpdatePressed(key);
+                hotkeyCompass.UpdatePressed(key);
+                hotkeySubtitle.UpdatePressed(key);
 
-    void HotkeyContext::Update(const RE::ButtonEvent* a_button)
-    {
-        if (!a_button || !a_button->HasIDCode()) {
-            return;
-        }
-
-        if (a_button->IsPressed()) {
-            auto key = RemapKey(a_button->GetIDCode(), a_button->GetDevice());
-            if (key == targetModifierCompass) {
-                hasModifierCompass = true;
-            } else if (key == targetModifierSubtitle) {
-                hasModifierSubtitle = true;
-            } else if (a_button->IsDown()) {
-                if (key == targetHotkey) {
-                    hasHotkey = true;
+                if (a_button->IsDown()) {
+                    hotkey.UpdateDown(key);
+                    hotkeyCompass.UpdateDown(key);
+                    hotkeySubtitle.UpdateDown(key);
                 }
             }
         }
-    }
+
+        void Finalize()
+        {
+            auto app = Application::GetSingleton();
+
+            if (hotkey.IsActive()) {
+                app->ToggleUI();
+            }
+
+            if (hotkeyCompass.IsActive()) {
+                app->ToggleCompass();
+            }
+
+            if (hotkeySubtitle.IsActive()) {
+                app->ToggleSubtitle();
+            }
+        }
+
+    private:
+        KeyCombo hotkey;
+        KeyCombo hotkeyCompass;
+        KeyCombo hotkeySubtitle;
+    };
 }
 
 void HotkeyManager::Process(const RE::InputEvent* const* a_event)
 {
     const auto config = Configuration::GetSingleton();
 
-    HotkeyContext ctx{ config->iHotkey, config->iModifierCompass, config->iModifierSubtitle };
+    HotkeyContext ctx{ config };
 
     for (auto event = *a_event; event; event = event->next) {
         if (auto button = event->AsButtonEvent()) {
@@ -115,14 +131,5 @@ void HotkeyManager::Process(const RE::InputEvent* const* a_event)
         }
     }
 
-    if (ctx.hasHotkey) {
-        auto app = Application::GetSingleton();
-        if (ctx.hasModifierCompass) {
-            app->ToggleCompass();
-        } else if (ctx.hasModifierSubtitle) {
-            app->ToggleSubtitle();
-        } else {
-            app->ToggleUI();
-        }
-    }
+    ctx.Finalize();
 }
