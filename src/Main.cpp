@@ -53,6 +53,7 @@ SKSEPluginLoad(const SKSE::LoadInterface* a_skse)
         SKSE::log::info("OS Version: Unknown");
     }
     SKSE::log::info("Game Version: {}", a_skse->RuntimeVersion().string("."sv));
+    SKSE::log::info("Base Address: 0x{:016X}", REL::Module::get().base());
 
     auto plugin = SKSE::PluginDeclaration::GetSingleton();
     SKSE::log::info("{} {} is loading...", plugin->GetName(), plugin->GetVersion().string("."sv));
@@ -61,8 +62,7 @@ SKSEPluginLoad(const SKSE::LoadInterface* a_skse)
 
     Configuration::Init();
 
-    auto messaging = SKSE::GetMessagingInterface();
-    messaging->RegisterListener(OnMessage);
+    SKSE::GetMessagingInterface()->RegisterListener(OnMessage);
 
     SKSE::log::info("{} has finished loading.", plugin->GetName());
     return true;
