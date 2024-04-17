@@ -83,5 +83,5 @@ private:
     void LoadImpl();
     void SaveImpl() const;
 
-    static inline const std::string path{ "Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
+    static inline const std::filesystem::path path{ L"Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
 };

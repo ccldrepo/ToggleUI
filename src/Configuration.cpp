@@ -19,13 +19,13 @@ void Configuration::Load()
 {
     try {
         LoadImpl();
-        SKSE::log::info("Successfully loaded configuration from \"{}\".", path);
+        SKSE::log::info("Successfully loaded configuration from \"{}\".", PathToStr(path));
     } catch (const toml::parse_error& e) {
         auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}.",
-            path, e.source().begin.line, e.source().begin.column, e.what());
+            PathToStr(path), e.source().begin.line, e.source().begin.column, e.what());
         SKSE::stl::report_and_fail(msg);
     } catch (const std::exception& e) {
-        auto msg = std::format("Failed to load configuration from \"{}\": {}.", path, e.what());
+        auto msg = std::format("Failed to load configuration from \"{}\": {}.", PathToStr(path), e.what());
         SKSE::stl::report_and_fail(msg);
     }
 }
@@ -34,9 +34,9 @@ void Configuration::Save() const
 {
     try {
         SaveImpl();
-        SKSE::log::info("Successfully saved configuration to \"{}\".", path);
+        SKSE::log::info("Successfully saved configuration to \"{}\".", PathToStr(path));
     } catch (const std::exception& e) {
-        auto msg = std::format("Failed to save configuration to \"{}\": {}.", path, e.what());
+        auto msg = std::format("Failed to save configuration to \"{}\": {}.", PathToStr(path), e.what());
         SKSE::stl::report_and_fail(msg);
     }
 }
