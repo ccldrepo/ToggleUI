@@ -18,6 +18,32 @@ public:
     using std::runtime_error::runtime_error;
 };
 
+inline toml::table LoadTOMLFile(const std::filesystem::path& a_path)
+{
+    auto size = std::filesystem::file_size(a_path);
+
+    std::vector<char> buffer;
+    buffer.resize(static_cast<std::vector<char>::size_type>(size));
+
+    if (std::ifstream file{ a_path, std::ios_base::in | std::ios_base::binary }) {
+        file.read(buffer.data(), static_cast<std::streamsize>(size));
+    } else {
+        throw TOMLError("File could not be opened for reading");
+    }
+
+    std::string_view doc{ buffer.data(), buffer.size() };
+    return toml::parse(doc, a_path.native());
+}
+
+inline void SaveTOMLFile(const std::filesystem::path& a_path, const toml::table& a_table)
+{
+    if (std::ofstream file{ a_path }) {
+        file << a_table << std::endl;
+    } else {
+        throw TOMLError("File could not be opened for writing");
+    }
+}
+
 template <TOMLScalar T>
 inline void LoadTOMLValue(const toml::table& a_table, std::string_view a_key, T& a_target)
 {

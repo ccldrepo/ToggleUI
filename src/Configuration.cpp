@@ -43,7 +43,7 @@ void Configuration::Save() const
 
 void Configuration::LoadImpl()
 {
-    auto data = toml::parse_file(path);
+    auto data = LoadTOMLFile(path);
 
     LoadTOMLValue(data, "iHotkey"sv, iHotkey);
     LoadTOMLValue(data, "iModifier"sv, iModifier);
@@ -80,6 +80,5 @@ void Configuration::SaveImpl() const
     SaveTOMLValue(data, "slMenuNames"sv, slMenuNames);
     SaveTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
 
-    std::ofstream file{ path };
-    file << data << std::endl;
+    SaveTOMLFile(path, data);
 }
