@@ -2,14 +2,13 @@
 
 #include <PCH.h>
 
-#include "Util/Singleton.h"
-
-class Configuration final : public Singleton<Configuration>
+class Configuration
 {
-    friend class Singleton<Configuration>;
-
 public:
+    static const Configuration* GetSingleton() { return config.get(); }
+
     static void Init();
+    static void Reload();
 
     struct Default
     {
@@ -77,11 +76,18 @@ public:
 private:
     Configuration() = default;
 
+    Configuration(const Configuration&) = delete;
+    Configuration(Configuration&&) = delete;
+    Configuration& operator=(const Configuration&) = delete;
+    Configuration& operator=(Configuration&&) = delete;
+
     void Load();
     void Save() const;
 
     void LoadImpl();
     void SaveImpl() const;
+
+    static inline std::unique_ptr<Configuration> config{ nullptr };
 
     static inline const std::filesystem::path path{ L"Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
 };

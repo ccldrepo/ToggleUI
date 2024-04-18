@@ -6,13 +6,32 @@
 
 void Configuration::Init()
 {
-    auto config = GetSingleton();
+    config = std::unique_ptr<Configuration>{ new Configuration };
     if (std::filesystem::exists(path)) {
         config->Load();
     } else {
         // Export default config if config file not exists.
         config->Save();
     }
+}
+
+void Configuration::Reload()
+{
+    auto other = std::unique_ptr<Configuration>{ new Configuration };
+    try {
+        other->LoadImpl();
+        SKSE::log::info("Successfully loaded configuration from \"{}\".", PathToStr(path));
+    } catch (const toml::parse_error& e) {
+        auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}.",
+            PathToStr(path), e.source().begin.line, e.source().begin.column, e.what());
+        SKSE::log::error("{}", msg);
+        throw std::runtime_error(msg);
+    } catch (const std::exception& e) {
+        auto msg = std::format("Failed to load configuration from \"{}\": {}.", PathToStr(path), e.what());
+        SKSE::log::error("{}", msg);
+        throw std::runtime_error(msg);
+    }
+    config = std::move(other);
 }
 
 void Configuration::Load()
