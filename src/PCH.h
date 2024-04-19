@@ -1,31 +1,41 @@
 #pragma once
 
 #include <algorithm>
+#include <any>
 #include <array>
 #include <atomic>
 #include <bit>
+#include <cassert>
 #include <cctype>
+#include <cerrno>
 #include <chrono>
 #include <climits>
 #include <compare>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
+#include <cstdio>
+#include <cstdlib>
 #include <cstring>
 #include <exception>
+#include <execution>
 #include <filesystem>
 #include <format>
 #include <fstream>
 #include <functional>
+#include <future>
 #include <initializer_list>
 #include <ios>
+#include <istream>
 #include <map>
 #include <memory>
 #include <mutex>
 #include <optional>
+#include <ostream>
 #include <ranges>
 #include <set>
 #include <shared_mutex>
+#include <source_location>
 #include <span>
 #include <sstream>
 #include <stdexcept>
@@ -38,7 +48,9 @@
 #include <unordered_map>
 #include <unordered_set>
 #include <utility>
+#include <variant>
 #include <vector>
+#include <version>
 
 #include <RE/Skyrim.h>
 #include <REL/Relocation.h>
@@ -50,10 +62,24 @@
 #include <fmt/format.h>
 #include <fmt/ranges.h>
 
+#include <spdlog/spdlog.h>
+
 using namespace std::literals::string_view_literals;
 
 namespace SKSE::stl
 {
+    [[noreturn]] inline void abort_or_throw(const std::string& a_msg, bool a_abort,
+        std::source_location a_loc = std::source_location::current())
+    {
+        if (a_abort) {
+            SKSE::stl::report_and_fail(a_msg, a_loc);
+        } else {
+            spdlog::log(spdlog::source_loc{ a_loc.file_name(), static_cast<int>(a_loc.line()), a_loc.function_name() },
+                spdlog::level::err, a_msg);
+            throw std::runtime_error(a_msg);
+        }
+    }
+
     template <class T>
     inline void write_thunk_call(REL::Relocation<std::uintptr_t> a_src)
     {
