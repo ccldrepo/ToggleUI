@@ -4,37 +4,19 @@
 
 #include "Util/TOML.h"
 
-void Configuration::Init()
+void Configuration::Init(bool a_abort)
 {
-    config = std::unique_ptr<Configuration>{ new Configuration };
+    auto tmp = std::unique_ptr<Configuration>{ new Configuration };
     if (std::filesystem::exists(path)) {
-        config->Load();
+        tmp->Load(a_abort);
     } else {
         // Export default config if config file not exists.
-        config->Save();
+        tmp->Save(a_abort);
     }
+    config = std::move(tmp);
 }
 
-void Configuration::Reload()
-{
-    auto other = std::unique_ptr<Configuration>{ new Configuration };
-    try {
-        other->LoadImpl();
-        SKSE::log::info("Successfully loaded configuration from \"{}\".", PathToStr(path));
-    } catch (const toml::parse_error& e) {
-        auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}.",
-            PathToStr(path), e.source().begin.line, e.source().begin.column, e.what());
-        SKSE::log::error("{}", msg);
-        throw std::runtime_error(msg);
-    } catch (const std::exception& e) {
-        auto msg = std::format("Failed to load configuration from \"{}\": {}.", PathToStr(path), e.what());
-        SKSE::log::error("{}", msg);
-        throw std::runtime_error(msg);
-    }
-    config = std::move(other);
-}
-
-void Configuration::Load()
+void Configuration::Load(bool a_abort)
 {
     try {
         LoadImpl();
@@ -42,21 +24,21 @@ void Configuration::Load()
     } catch (const toml::parse_error& e) {
         auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}.",
             PathToStr(path), e.source().begin.line, e.source().begin.column, e.what());
-        SKSE::stl::report_and_fail(msg);
+        SKSE::stl::abort_or_throw(msg, a_abort);
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to load configuration from \"{}\": {}.", PathToStr(path), e.what());
-        SKSE::stl::report_and_fail(msg);
+        SKSE::stl::abort_or_throw(msg, a_abort);
     }
 }
 
-void Configuration::Save() const
+void Configuration::Save(bool a_abort) const
 {
     try {
         SaveImpl();
         SKSE::log::info("Successfully saved configuration to \"{}\".", PathToStr(path));
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to save configuration to \"{}\": {}.", PathToStr(path), e.what());
-        SKSE::stl::report_and_fail(msg);
+        SKSE::stl::abort_or_throw(msg, a_abort);
     }
 }
 

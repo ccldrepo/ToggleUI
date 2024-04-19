@@ -7,8 +7,7 @@ class Configuration
 public:
     static const Configuration* GetSingleton() { return config.get(); }
 
-    static void Init();
-    static void Reload();
+    static void Init(bool a_abort = true);
 
     struct Default
     {
@@ -81,8 +80,8 @@ private:
     Configuration& operator=(const Configuration&) = delete;
     Configuration& operator=(Configuration&&) = delete;
 
-    void Load();
-    void Save() const;
+    void Load(bool a_abort);
+    void Save(bool a_abort) const;
 
     void LoadImpl();
     void SaveImpl() const;
