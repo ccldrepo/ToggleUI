@@ -29,19 +29,30 @@ iModifierSubtitle = 157
 # The list of HUD that can be toggled. Remove HUD names from the list if you
 # don't want to toggle those HUD.
 slHUDNames = [
+    # Vanilla
     "HUD Menu",
+    # Better Third Person Selection
     "BTPS Menu",
+    # Casting Bar
     "CastingBar",
-    "Durability Menu",
-    "Floating Damage V2",
+    # EatingSleepingDrinking - KuNeruNomu -
     "KNNWidgetMeter",
     "KNNWidgetMeterOp",
-    "LootMenu",
+    # Equipment Durability System
+    "Durability Menu",
+    # Floating Damage
+    "Floating Damage V2",
+    # MiniMap
     "MiniMapMenu",
+    # OStim Standalone
     "OStimAlignMenu",
     "OstimSceneMenu",
     "OStimSearchMenu",
+    # Oxygen Meter 2
     "oxygenMeter2",
+    # QuickLoot EE
+    "LootMenu",
+    # TrueHUD
     "TrueHUD",
 ]
 

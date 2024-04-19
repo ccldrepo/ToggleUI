@@ -21,19 +21,30 @@ public:
         static constexpr std::uint32_t iModifierSubtitle{ REX::W32::DIK_RCONTROL };
 
         static constexpr std::array slHUDNames{
+            // Vanilla
             RE::HUDMenu::MENU_NAME,
+            // Better Third Person Selection
             "BTPS Menu"sv,
+            // Casting Bar
             "CastingBar"sv,
-            "Durability Menu"sv,
-            "Floating Damage V2"sv,
+            // EatingSleepingDrinking - KuNeruNomu -
             "KNNWidgetMeter"sv,
             "KNNWidgetMeterOp"sv,
-            "LootMenu"sv,
+            // Equipment Durability System
+            "Durability Menu"sv,
+            // Floating Damage
+            "Floating Damage V2"sv,
+            // MiniMap
             "MiniMapMenu"sv,
+            // OStim Standalone
             "OStimAlignMenu"sv,
             "OstimSceneMenu"sv,
             "OStimSearchMenu"sv,
+            // Oxygen Meter 2
             "oxygenMeter2"sv,
+            // QuickLoot EE
+            "LootMenu"sv,
+            // TrueHUD
             "TrueHUD"sv,
         };
 
