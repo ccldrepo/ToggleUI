@@ -26,6 +26,8 @@ public:
             "CastingBar"sv,
             "Durability Menu"sv,
             "Floating Damage V2"sv,
+            "KNNWidgetMeter"sv,
+            "KNNWidgetMeterOp"sv,
             "LootMenu"sv,
             "MiniMapMenu"sv,
             "OStimAlignMenu"sv,

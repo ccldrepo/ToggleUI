@@ -34,6 +34,8 @@ slHUDNames = [
     "CastingBar",
     "Durability Menu",
     "Floating Damage V2",
+    "KNNWidgetMeter",
+    "KNNWidgetMeterOp",
     "LootMenu",
     "MiniMapMenu",
     "OStimAlignMenu",
