@@ -1,0 +1,3 @@
+dll = "ccld_ToggleUI.dll"
+api = "ReloadConfig"
+type = "MessageBox"

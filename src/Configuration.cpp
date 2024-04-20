@@ -4,41 +4,43 @@
 
 #include "Util/TOML.h"
 
-void Configuration::Init(bool a_abort)
+void Configuration::Init(bool a_throw)
 {
     auto tmp = std::unique_ptr<Configuration>{ new Configuration };
     if (std::filesystem::exists(path)) {
-        tmp->Load(a_abort);
+        tmp->Load(a_throw);
     } else {
         // Export default config if config file not exists.
-        tmp->Save(a_abort);
+        tmp->Save(a_throw);
     }
     config = std::move(tmp);
 }
 
-void Configuration::Load(bool a_abort)
+void Configuration::Load(bool a_throw)
 {
     try {
         LoadImpl();
-        SKSE::log::info("Successfully loaded configuration from \"{}\".", PathToStr(path));
+        auto msg = std::format("Successfully loaded configuration from \"{}\".", PathToStr(path));
+        SKSE::stl::log_success(msg, a_throw);
     } catch (const toml::parse_error& e) {
         auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}.",
             PathToStr(path), e.source().begin.line, e.source().begin.column, e.what());
-        SKSE::stl::abort_or_throw(msg, a_abort);
+        SKSE::stl::log_failure(msg, a_throw);
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to load configuration from \"{}\": {}.", PathToStr(path), e.what());
-        SKSE::stl::abort_or_throw(msg, a_abort);
+        SKSE::stl::log_failure(msg, a_throw);
     }
 }
 
-void Configuration::Save(bool a_abort) const
+void Configuration::Save(bool a_throw) const
 {
     try {
         SaveImpl();
-        SKSE::log::info("Successfully saved configuration to \"{}\".", PathToStr(path));
+        auto msg = std::format("Successfully saved configuration to \"{}\".", PathToStr(path));
+        SKSE::stl::log_success(msg, a_throw);
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to save configuration to \"{}\": {}.", PathToStr(path), e.what());
-        SKSE::stl::abort_or_throw(msg, a_abort);
+        SKSE::stl::log_failure(msg, a_throw);
     }
 }
 

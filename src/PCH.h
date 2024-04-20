@@ -68,10 +68,20 @@ using namespace std::literals::string_view_literals;
 
 namespace SKSE::stl
 {
-    [[noreturn]] inline void abort_or_throw(const std::string& a_msg, bool a_abort,
+    inline void log_success(const std::string& a_msg, bool a_throw,
         std::source_location a_loc = std::source_location::current())
     {
-        if (a_abort) {
+        spdlog::log(spdlog::source_loc{ a_loc.file_name(), static_cast<int>(a_loc.line()), a_loc.function_name() },
+            spdlog::level::info, a_msg);
+        if (a_throw) {
+            throw std::runtime_error(a_msg);
+        }
+    }
+
+    [[noreturn]] inline void log_failure(const std::string& a_msg, bool a_throw,
+        std::source_location a_loc = std::source_location::current())
+    {
+        if (!a_throw) {
             SKSE::stl::report_and_fail(a_msg, a_loc);
         } else {
             spdlog::log(spdlog::source_loc{ a_loc.file_name(), static_cast<int>(a_loc.line()), a_loc.function_name() },

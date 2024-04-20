@@ -8,7 +8,7 @@ public:
     static const Configuration* GetSingleton() { return config.get(); }
 
     // Initialize or reload configuration.
-    static void Init(bool a_abort = true);
+    static void Init(bool a_throw = false);
 
     struct Default
     {
