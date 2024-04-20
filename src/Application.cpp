@@ -62,12 +62,12 @@ void Application::ResetUI()
     }
 }
 
-void Application::ToggleCompass() const  //
+void Application::ToggleCompass()  //
 {
     ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha");
 }
 
-void Application::ToggleSubtitle() const  //
+void Application::ToggleSubtitle()  //
 {
     ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
 }

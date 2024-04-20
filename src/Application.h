@@ -15,8 +15,8 @@ public:
     void ToggleUI();
     void ResetUI();
 
-    void ToggleCompass() const;
-    void ToggleSubtitle() const;
+    static void ToggleCompass();
+    static void ToggleSubtitle();
 
 private:
     Application() = default;
