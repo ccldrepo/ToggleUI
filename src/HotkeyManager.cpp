@@ -1,4 +1,4 @@
-#include "Hotkey.h"
+#include "HotkeyManager.h"
 
 #include "Application.h"
 #include "Configuration.h"

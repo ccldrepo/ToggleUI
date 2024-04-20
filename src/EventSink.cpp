@@ -1,7 +1,7 @@
 #include "EventSink.h"
 
 #include "Application.h"
-#include "Hotkey.h"
+#include "HotkeyManager.h"
 
 void InputEventSink::Register()
 {
