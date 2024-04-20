@@ -56,7 +56,8 @@ slHUDNames = [
     "TrueHUD",
 ]
 
-# The list of menus that can be toggled.
+# The list of menus that can be toggled. Remove menu names from the list if you
+# want to siwth to "Toggle HUD" mode while in those menus.
 slMenuNames = [
     "BarterMenu",
     "Book Menu",

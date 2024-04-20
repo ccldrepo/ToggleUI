@@ -7,6 +7,7 @@ class Configuration
 public:
     static const Configuration* GetSingleton() { return config.get(); }
 
+    // Initialize or reload configuration.
     static void Init(bool a_abort = true);
 
     struct Default
