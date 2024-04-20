@@ -1,5 +1,7 @@
 #include "Application.h"
 
+#include "Configuration.h"
+
 namespace
 {
     inline bool IsAnyOfMenuOpen(RE::UI* a_ui, const std::vector<std::string>& a_menuNames)
@@ -28,20 +30,22 @@ namespace
     }
 }
 
-bool Application::IsMenu(std::string_view a_menuName) const
+bool Application::IsMenu(std::string_view a_menuName)
 {
+    const auto config = Configuration::GetSingleton();
     return std::ranges::binary_search(config->slMenuNames, a_menuName);
 }
 
 void Application::ToggleUI()
 {
-    auto ui = RE::UI::GetSingleton();
+    const auto config = Configuration::GetSingleton();
+    auto       ui = RE::UI::GetSingleton();
     if (IsInGameplayContext()) {
         ToggleHUD(ui);
         RE::PlaySound("UIMenuFocus");
-    } else if (IsInBannedMenu(ui)) {
+    } else if (IsInBannedMenu(config, ui)) {
         // Disable toggle.
-    } else if (IsInMenu(ui)) {
+    } else if (IsInMenu(config, ui)) {
         ToggleMenu(ui);
         RE::PlaySound("UIMenuFocus");
     } else {
@@ -68,23 +72,39 @@ void Application::ToggleSubtitle() const  //
     ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
 }
 
-bool Application::IsInMenu(RE::UI* a_ui) const  //
+bool Application::IsInMenu(const Configuration* a_config, RE::UI* a_ui)
 {
-    return IsAnyOfMenuOpen(a_ui, config->slMenuNames);
+    return IsAnyOfMenuOpen(a_ui, a_config->slMenuNames);
 }
 
-bool Application::IsInBannedMenu(RE::UI* a_ui) const  //
+bool Application::IsInBannedMenu(const Configuration* a_config, RE::UI* a_ui)
 {
-    return IsAnyOfMenuOpen(a_ui, config->slBannedMenuNames);
+    return IsAnyOfMenuOpen(a_ui, a_config->slBannedMenuNames);
 }
 
-bool Application::IsInMenuContext(RE::UI* a_ui) const
+bool Application::IsInMenuContext(const Configuration* a_config, RE::UI* a_ui)
 {
-    return !IsInGameplayContext() && (IsInMenu(a_ui) || IsInBannedMenu(a_ui));
+    return !IsInGameplayContext() && (IsInMenu(a_config, a_ui) || IsInBannedMenu(a_config, a_ui));
+}
+
+void Application::ToggleHUDElement(const char* a_pathToVar)
+{
+    const auto config = Configuration::GetSingleton();
+    auto       ui = RE::UI::GetSingleton();
+    if (IsInMenuContext(config, ui)) {
+        return;
+    }
+
+    if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
+        double value = uiMovie->GetVariableDouble(a_pathToVar);
+        uiMovie->SetVariableDouble(a_pathToVar, value < 1.0 ? 100.0 : 0.0);
+        RE::PlaySound("UIMenuFocus");
+    }
 }
 
 void Application::ToggleHUD(RE::UI* a_ui)
 {
+    const auto config = Configuration::GetSingleton();
     hudVisible = !hudVisible;
     RE::GFxValue value{ hudVisible ? 100 : 0 };
     for (std::string_view hudName : config->slHUDNames) {
@@ -98,18 +118,4 @@ void Application::ToggleMenu(RE::UI* a_ui)
 {
     menuVisible = !menuVisible;
     a_ui->ShowMenus(menuVisible);
-}
-
-void Application::ToggleHUDElement(const char* a_pathToVar) const
-{
-    auto ui = RE::UI::GetSingleton();
-    if (IsInMenuContext(ui)) {
-        return;
-    }
-
-    if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
-        double value = uiMovie->GetVariableDouble(a_pathToVar);
-        uiMovie->SetVariableDouble(a_pathToVar, value < 1.0 ? 100.0 : 0.0);
-        RE::PlaySound("UIMenuFocus");
-    }
 }

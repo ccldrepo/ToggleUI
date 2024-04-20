@@ -10,7 +10,7 @@ class Application final : public Singleton<Application>
     friend class Singleton<Application>;
 
 public:
-    bool IsMenu(std::string_view a_menuName) const;
+    static bool IsMenu(std::string_view a_menuName);
 
     void ToggleUI();
     void ResetUI();
@@ -19,19 +19,17 @@ public:
     void ToggleSubtitle() const;
 
 private:
-    Application() : config(Configuration::GetSingleton()) {}
+    Application() = default;
 
-    bool IsInMenu(RE::UI* a_ui) const;
-    bool IsInBannedMenu(RE::UI* a_ui) const;
-    bool IsInMenuContext(RE::UI* a_ui) const;
+    static bool IsInMenu(const Configuration* a_config, RE::UI* a_ui);
+    static bool IsInBannedMenu(const Configuration* a_config, RE::UI* a_ui);
+    static bool IsInMenuContext(const Configuration* a_config, RE::UI* a_ui);
+
+    static void ToggleHUDElement(const char* a_pathToVar);
 
     void ToggleHUD(RE::UI* a_ui);
     void ToggleMenu(RE::UI* a_ui);
 
-    void ToggleHUDElement(const char* a_pathToVar) const;
-
     bool hudVisible{ true };
     bool menuVisible{ true };
-
-    const Configuration* config;
 };
