@@ -85,10 +85,8 @@ namespace
             }
         }
 
-        void Finalize()
+        void Finalize(Application* app)
         {
-            auto app = Application::GetSingleton();
-
             bool lpt = false;  // low priority toggle
 
             if (hotkeyCompass.IsActive()) {
@@ -125,5 +123,7 @@ void HotkeyManager::Process(const RE::InputEvent* const* a_event)
         }
     }
 
-    ctx.Finalize();
+    auto app = Application::GetSingleton();
+
+    ctx.Finalize(app);
 }
