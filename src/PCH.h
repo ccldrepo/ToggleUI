@@ -94,7 +94,7 @@ namespace SKSE::stl
     inline void write_thunk_call(REL::Relocation<std::uintptr_t> a_src)
     {
         SKSE::AllocTrampoline(14);
-        T::func = a_src.write_call<5>(T::tunk);
+        T::func = a_src.write_call<5>(T::thunk);
     }
 }
 
