@@ -1,66 +1,17 @@
 #include "HotkeyManager.h"
 
 #include "Application.h"
+#include "CLib/Key.h"
 #include "Configuration.h"
 
 namespace
 {
-    inline std::uint32_t RemapKey(std::uint32_t a_key, RE::INPUT_DEVICE a_device)
-    {
-        switch (a_device) {
-        case RE::INPUT_DEVICE::kKeyboard:
-            break;
-        case RE::INPUT_DEVICE::kMouse:
-            a_key += SKSE::InputMap::kMacro_MouseButtonOffset;
-            break;
-        case RE::INPUT_DEVICE::kGamepad:
-            a_key = SKSE::InputMap::GamepadMaskToKeycode(a_key);
-            break;
-        default:
-            break;
-        }
-        return a_key;
-    }
-
-    class KeyCombo
-    {
-    public:
-        constexpr KeyCombo(std::uint32_t a_targetHotkey, std::uint32_t a_targetModifier) noexcept :
-            targetHotkey(a_targetHotkey), targetModifier(a_targetModifier)
-        {}
-
-        bool IsActive() const noexcept  //
-        {
-            return (hasHotkey && hasModifier) || (hasHotkey && targetModifier == 0);
-        }
-
-        void UpdateDown(std::uint32_t a_key) noexcept
-        {
-            if (targetHotkey != 0 && a_key == targetHotkey) {
-                hasHotkey = true;
-            }
-        }
-
-        void UpdatePressed(std::uint32_t a_key) noexcept
-        {
-            if (targetModifier != 0 && a_key == targetModifier) {
-                hasModifier = true;
-            }
-        }
-
-    private:
-        const std::uint32_t targetHotkey;
-        const std::uint32_t targetModifier;
-
-        bool hasHotkey{ false };
-        bool hasModifier{ false };
-    };
-
     class HotkeyContext
     {
     public:
         HotkeyContext(const Configuration* config) :
             hotkey(config->iHotkey, config->iModifier), hotkeyCompass(config->iHotkeyCompass, config->iModifierCompass),
+            hotkeyPlayerBar(config->iHotkeyPlayerBar, config->iModifierPlayerBar),
             hotkeySubtitle(config->iHotkeySubtitle, config->iModifierSubtitle)
         {}
 
@@ -71,15 +22,17 @@ namespace
             }
 
             if (a_button->IsPressed()) {
-                auto key = RemapKey(a_button->GetIDCode(), a_button->GetDevice());
+                auto key = CLib::ParseKeyCode(a_button->GetIDCode(), a_button->GetDevice());
 
                 hotkey.UpdatePressed(key);
                 hotkeyCompass.UpdatePressed(key);
+                hotkeyPlayerBar.UpdatePressed(key);
                 hotkeySubtitle.UpdatePressed(key);
 
                 if (a_button->IsDown()) {
                     hotkey.UpdateDown(key);
                     hotkeyCompass.UpdateDown(key);
+                    hotkeyPlayerBar.UpdateDown(key);
                     hotkeySubtitle.UpdateDown(key);
                 }
             }
@@ -87,27 +40,40 @@ namespace
 
         void Finalize(Application* app)
         {
-            bool lpt = false;  // low priority toggle
+            for (std::uint32_t count = 2; count > 0; --count) {
+                bool done = false;
 
-            if (hotkeyCompass.IsActive()) {
-                app->ToggleCompass();
-                lpt = true;
-            }
+                if (hotkey.Count() == count && hotkey.IsActive()) {
+                    app->ToggleUI();
+                    done = true;
+                }
 
-            if (hotkeySubtitle.IsActive()) {
-                app->ToggleSubtitle();
-                lpt = true;
-            }
+                if (hotkeyCompass.Count() == count && hotkeyCompass.IsActive()) {
+                    app->ToggleCompass();
+                    done = true;
+                }
 
-            if (!lpt && hotkey.IsActive()) {
-                app->ToggleUI();
+                if (hotkeyPlayerBar.Count() == count && hotkeyPlayerBar.IsActive()) {
+                    app->TogglePlayerBar();
+                    done = true;
+                }
+
+                if (hotkeySubtitle.Count() == count && hotkeySubtitle.IsActive()) {
+                    app->ToggleSubtitle();
+                    done = true;
+                }
+
+                if (done) {
+                    break;
+                }
             }
         }
 
     private:
-        KeyCombo hotkey;
-        KeyCombo hotkeyCompass;
-        KeyCombo hotkeySubtitle;
+        CLib::KeyCombo hotkey;
+        CLib::KeyCombo hotkeyCompass;
+        CLib::KeyCombo hotkeyPlayerBar;
+        CLib::KeyCombo hotkeySubtitle;
     };
 }
 
