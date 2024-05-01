@@ -64,19 +64,19 @@ void Application::ResetUI()
 
 void Application::ToggleCompass()  //
 {
-    ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._visible");
 }
 
 void Application::TogglePlayerBar()
 {
-    ToggleHUDElement("_root.HUDMovieBaseInstance.Health._alpha");
-    ToggleHUDElement("_root.HUDMovieBaseInstance.Magica._alpha");
-    ToggleHUDElement("_root.HUDMovieBaseInstance.Stamina._alpha");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.Health._visible");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.Magica._visible");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.Stamina._visible");
 }
 
 void Application::ToggleSubtitle()  //
 {
-    ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._visible");
 }
 
 bool Application::IsInMenu(const Configuration* a_config, RE::UI* a_ui)
@@ -103,8 +103,10 @@ void Application::ToggleHUDElement(const char* a_pathToVar)
     }
 
     if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
-        double value = uiMovie->GetVariableDouble(a_pathToVar);
-        uiMovie->SetVariableDouble(a_pathToVar, value < 1.0 ? 100.0 : 0.0);
+        RE::GFxValue value;
+        uiMovie->GetVariable(&value, a_pathToVar);
+        value.SetBoolean(!value.GetBool());
+        uiMovie->SetVariable(a_pathToVar, value);
     }
 }
 
