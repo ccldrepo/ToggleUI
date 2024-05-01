@@ -19,7 +19,7 @@ public:
         static constexpr std::uint32_t iModifierCompass{ REX::W32::DIK_RSHIFT };
 
         static constexpr std::uint32_t iHotkeyPlayerBar{ REX::W32::DIK_F6 };
-        static constexpr std::uint32_t iModifierPlayerBar{ REX::W32::DIK_RALT };
+        static constexpr std::uint32_t iModifierPlayerBar{ REX::W32::DIK_LSHIFT };
 
         static constexpr std::uint32_t iHotkeySubtitle{ REX::W32::DIK_F6 };
         static constexpr std::uint32_t iModifierSubtitle{ REX::W32::DIK_RCONTROL };

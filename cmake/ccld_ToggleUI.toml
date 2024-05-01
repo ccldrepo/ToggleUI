@@ -23,8 +23,8 @@ iModifierCompass = 54
 #
 # Default: 64 (F6)
 iHotkeyPlayerBar = 64
-# Default: 184 (Right Alt)
-iModifierPlayerBar = 184
+# Default: 42 (Left Shift)
+iModifierPlayerBar = 42
 
 # Toggle subtitle hotkey.
 #
