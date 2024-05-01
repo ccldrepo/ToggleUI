@@ -67,6 +67,13 @@ void Application::ToggleCompass()  //
     ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha");
 }
 
+void Application::TogglePlayerBar()
+{
+    ToggleHUDElement("_root.HUDMovieBaseInstance.Health._alpha");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.Magica._alpha");
+    ToggleHUDElement("_root.HUDMovieBaseInstance.Stamina._alpha");
+}
+
 void Application::ToggleSubtitle()  //
 {
     ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
@@ -98,7 +105,6 @@ void Application::ToggleHUDElement(const char* a_pathToVar)
     if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
         double value = uiMovie->GetVariableDouble(a_pathToVar);
         uiMovie->SetVariableDouble(a_pathToVar, value < 1.0 ? 100.0 : 0.0);
-        RE::PlaySound("UIMenuFocus");
     }
 }
 

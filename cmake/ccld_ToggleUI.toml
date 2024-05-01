@@ -19,6 +19,13 @@ iHotkeyCompass = 64
 # Default: 54 (Right Shift)
 iModifierCompass = 54
 
+# Toggle player bar (Health/Magica/Stamina) hotkey.
+#
+# Default: 64 (F6)
+iHotkeyPlayerBar = 64
+# Default: 184 (Right Alt)
+iModifierPlayerBar = 184
+
 # Toggle subtitle hotkey.
 #
 # Default: 64 (F6)

@@ -18,6 +18,9 @@ public:
         static constexpr std::uint32_t iHotkeyCompass{ REX::W32::DIK_F6 };
         static constexpr std::uint32_t iModifierCompass{ REX::W32::DIK_RSHIFT };
 
+        static constexpr std::uint32_t iHotkeyPlayerBar{ REX::W32::DIK_F6 };
+        static constexpr std::uint32_t iModifierPlayerBar{ REX::W32::DIK_RALT };
+
         static constexpr std::uint32_t iHotkeySubtitle{ REX::W32::DIK_F6 };
         static constexpr std::uint32_t iModifierSubtitle{ REX::W32::DIK_RCONTROL };
 
@@ -78,6 +81,9 @@ public:
 
     std::uint32_t iHotkeyCompass{ Default::iHotkeyCompass };
     std::uint32_t iModifierCompass{ Default::iModifierCompass };
+
+    std::uint32_t iHotkeyPlayerBar{ Default::iHotkeyPlayerBar };
+    std::uint32_t iModifierPlayerBar{ Default::iModifierPlayerBar };
 
     std::uint32_t iHotkeySubtitle{ Default::iHotkeySubtitle };
     std::uint32_t iModifierSubtitle{ Default::iModifierSubtitle };

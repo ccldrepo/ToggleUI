@@ -16,6 +16,7 @@ public:
     void ResetUI();
 
     static void ToggleCompass();
+    static void TogglePlayerBar();
     static void ToggleSubtitle();
 
 private:

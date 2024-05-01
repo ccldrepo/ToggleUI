@@ -54,6 +54,9 @@ void Configuration::LoadImpl()
     LoadTOMLValue(data, "iHotkeyCompass"sv, iHotkeyCompass);
     LoadTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
 
+    LoadTOMLValue(data, "iHotkeyPlayerBar"sv, iHotkeyPlayerBar);
+    LoadTOMLValue(data, "iModifierPlayerBar"sv, iModifierPlayerBar);
+
     LoadTOMLValue(data, "iHotkeySubtitle"sv, iHotkeySubtitle);
     LoadTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
 
@@ -75,6 +78,9 @@ void Configuration::SaveImpl() const
 
     SaveTOMLValue(data, "iHotkeyCompass"sv, iHotkeyCompass);
     SaveTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
+
+    SaveTOMLValue(data, "iHotkeyPlayerBar"sv, iHotkeyPlayerBar);
+    SaveTOMLValue(data, "iModifierPlayerBar"sv, iModifierPlayerBar);
 
     SaveTOMLValue(data, "iHotkeySubtitle"sv, iHotkeySubtitle);
     SaveTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
