@@ -1,5 +1,7 @@
 set(headers
     src/Application.h
+    src/CLib/Hook.h
+    src/CLib/Key.h
     src/Configuration.h
     src/EventSink.h
     src/Function.h
