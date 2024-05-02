@@ -4,17 +4,17 @@
 
 namespace CLib
 {
-    inline std::uint32_t ParseKeyCode(std::uint32_t a_IDCode, RE::INPUT_DEVICE a_device)
+    inline std::uint32_t ParseKey(std::uint32_t a_key, RE::INPUT_DEVICE a_device)
     {
         switch (a_device) {
         case RE::INPUT_DEVICE::kKeyboard:
-            return a_IDCode;
+            return a_key;
         case RE::INPUT_DEVICE::kMouse:
-            return a_IDCode + SKSE::InputMap::kMacro_MouseButtonOffset;
+            return a_key + SKSE::InputMap::kMacro_MouseButtonOffset;
         case RE::INPUT_DEVICE::kGamepad:
-            return SKSE::InputMap::GamepadMaskToKeycode(a_IDCode);
+            return SKSE::InputMap::GamepadMaskToKeycode(a_key);
         default:
-            return a_IDCode;
+            return a_key;
         }
     }
 
