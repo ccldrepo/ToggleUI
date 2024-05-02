@@ -100,8 +100,8 @@ private:
     Configuration& operator=(const Configuration&) = delete;
     Configuration& operator=(Configuration&&) = delete;
 
-    void Load(bool a_abort);
-    void Save(bool a_abort) const;
+    void Load(bool a_throw);
+    void Save(bool a_throw) const;
 
     void LoadImpl();
     void SaveImpl() const;

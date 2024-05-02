@@ -9,7 +9,7 @@ namespace
     class HotkeyContext
     {
     public:
-        HotkeyContext(const Configuration* config) :
+        explicit HotkeyContext(const Configuration* config) :
             hotkey(config->iHotkey, config->iModifier), hotkeyCompass(config->iHotkeyCompass, config->iModifierCompass),
             hotkeyPlayerBar(config->iHotkeyPlayerBar, config->iModifierPlayerBar),
             hotkeySubtitle(config->iHotkeySubtitle, config->iModifierSubtitle)
