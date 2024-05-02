@@ -3,7 +3,7 @@ set(headers
     src/CLib/Hook.h
     src/CLib/Key.h
     src/Configuration.h
-    src/EventSink.h
+    src/Events.h
     src/Function.h
     src/HotkeyManager.h
     src/PCH.h

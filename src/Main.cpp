@@ -3,7 +3,7 @@
 #include <spdlog/sinks/basic_file_sink.h>
 
 #include "Configuration.h"
-#include "EventSink.h"
+#include "Events.h"
 #include "Util/Win.h"
 
 namespace
