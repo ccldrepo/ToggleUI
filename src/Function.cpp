@@ -9,13 +9,19 @@ MFMAPI void ToggleUI()
     app->ToggleUI();
 }
 
-MFMAPI void ToggleCompass()
+MFMAPI void ToggleHUD_Compass()
 {
     auto app = Application::GetSingleton();
     app->ToggleCompass();
 }
 
-MFMAPI void ToggleSubtitle()
+MFMAPI void ToggleHUD_PlayerBar()
+{
+    auto app = Application::GetSingleton();
+    app->TogglePlayerBar();
+}
+
+MFMAPI void ToggleHUD_Subtitle()
 {
     auto app = Application::GetSingleton();
     app->ToggleSubtitle();
