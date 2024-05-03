@@ -15,11 +15,7 @@ void InputEventSink::Register()
 
 RE::BSEventNotifyControl InputEventSink::ProcessEvent(const Event* a_event, [[maybe_unused]] EventSource*)
 {
-    if (!a_event) {
-        return RE::BSEventNotifyControl::kContinue;
-    }
-
-    if (auto player = RE::PlayerCharacter::GetSingleton(); !player || !player->Is3DLoaded()) {
+    if (!a_event || !RE::Main::GetSingleton()->gameActive) {
         return RE::BSEventNotifyControl::kContinue;
     }
 
