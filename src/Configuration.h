@@ -5,7 +5,12 @@
 class Configuration
 {
 public:
-    static const Configuration* GetSingleton() { return config.get(); }
+    [[nodiscard]] static const Configuration* GetSingleton() { return config.get(); }
+
+    Configuration(const Configuration&) = delete;
+    Configuration(Configuration&&) = delete;
+    Configuration& operator=(const Configuration&) = delete;
+    Configuration& operator=(Configuration&&) = delete;
 
     // Initialize or reload configuration.
     static void Init(bool a_throw = false);
@@ -94,11 +99,6 @@ public:
 
 private:
     Configuration() = default;
-
-    Configuration(const Configuration&) = delete;
-    Configuration(Configuration&&) = delete;
-    Configuration& operator=(const Configuration&) = delete;
-    Configuration& operator=(Configuration&&) = delete;
 
     void Load(bool a_throw);
     void Save(bool a_throw) const;
