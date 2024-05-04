@@ -13,7 +13,7 @@ public:
     Configuration& operator=(Configuration&&) = delete;
 
     // Initialize or reload configuration.
-    static void Init(bool a_throw = false);
+    static void Init(bool a_abort = true);
 
     struct Default
     {
@@ -104,8 +104,8 @@ public:
 private:
     Configuration() = default;
 
-    void Load(bool a_throw);
-    void Save(bool a_throw) const;
+    void Load(bool a_abort);
+    void Save(bool a_abort) const;
 
     void LoadImpl();
     void SaveImpl() const;
