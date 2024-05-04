@@ -90,4 +90,6 @@ slMenuNames = [
 
 # Move menu names from slMenuNames to slBannedMenuNames if you want to disable
 # "Toggle UI" while in those menus.
-slBannedMenuNames = []
+slBannedMenuNames = [
+    "Main Menu",
+]

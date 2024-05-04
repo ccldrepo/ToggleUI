@@ -79,6 +79,10 @@ public:
             RE::TutorialMenu::MENU_NAME,
             RE::TweenMenu::MENU_NAME,
         };
+
+        static constexpr std::array slBannedMenuNames{
+            RE::MainMenu::MENU_NAME,
+        };
     };
 
     std::uint32_t iHotkey{ Default::iHotkey };
@@ -95,7 +99,7 @@ public:
 
     std::vector<std::string> slHUDNames{ Default::slHUDNames.begin(), Default::slHUDNames.end() };
     std::vector<std::string> slMenuNames{ Default::slMenuNames.begin(), Default::slMenuNames.end() };
-    std::vector<std::string> slBannedMenuNames{};
+    std::vector<std::string> slBannedMenuNames{ Default::slBannedMenuNames.begin(), Default::slBannedMenuNames.end() };
 
 private:
     Configuration() = default;
