@@ -27,7 +27,7 @@ MFMAPI void ToggleHUD_Subtitle()
     app->ToggleSubtitle();
 }
 
-MFMAPI void ReloadConfig(char* a_msg, size_t a_len)
+MFMAPI void ReloadConfig(char* a_msg, std::size_t a_len)
 {
     try {
         Configuration::Init(true);

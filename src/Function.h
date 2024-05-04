@@ -2,6 +2,10 @@
 
 #pragma once
 
+#include <cstddef>
+#include <cstdint>
+#include <string_view>
+
 #define MFMAPI extern "C" [[maybe_unused]] __declspec(dllexport)
 
 // The allowed types of mod functions.
@@ -14,6 +18,8 @@ enum class MFMAPI_Type : std::uint32_t
 
 inline MFMAPI_Type MFMAPI_Type_StrToEnum(std::string_view a_str)
 {
+    using namespace std::literals::string_view_literals;
+
     if (a_str.empty() || a_str == "Void"sv) {
         return MFMAPI_Type::kVoid;
     } else if (a_str == "Message"sv) {
@@ -26,9 +32,9 @@ inline MFMAPI_Type MFMAPI_Type_StrToEnum(std::string_view a_str)
 
 using MFMAPI_Void = void (*)();
 // Copy your message to `a_msg` buffer with `a_len` length.
-using MFMAPI_Message = void (*)(char* a_msg, size_t a_len);
+using MFMAPI_Message = void (*)(char* a_msg, std::size_t a_len);
 // Copy your message to `a_msg` buffer with `a_len` length.
-using MFMAPI_MessageBox = void (*)(char* a_msg, size_t a_len);
+using MFMAPI_MessageBox = void (*)(char* a_msg, std::size_t a_len);
 
 // The action before invoking a mod function.
 enum class MFMAPI_PreAction : std::uint32_t
@@ -40,6 +46,8 @@ enum class MFMAPI_PreAction : std::uint32_t
 
 inline MFMAPI_PreAction MFMAPI_PreAction_StrToEnum(std::string_view a_str)
 {
+    using namespace std::literals::string_view_literals;
+
     if (a_str.empty() || a_str == "None"sv) {
         return MFMAPI_PreAction::kNone;
     } else if (a_str == "CloseMenu"sv) {
@@ -60,6 +68,8 @@ enum class MFMAPI_PostAction : std::uint32_t
 
 inline MFMAPI_PostAction MFMAPI_PostAction_StrToEnum(std::string_view a_str)
 {
+    using namespace std::literals::string_view_literals;
+
     if (a_str.empty() || a_str == "None"sv) {
         return MFMAPI_PostAction::kNone;
     } else if (a_str == "CloseMenu"sv) {
