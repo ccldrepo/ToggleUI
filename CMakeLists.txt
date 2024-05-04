@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.28)
 
 project(
     ccld_ToggleUI
-    VERSION 4.3.0
+    VERSION 4.4.0
     DESCRIPTION "SKSE plugin that allows users to toggle UI."
     LANGUAGES CXX
 )
