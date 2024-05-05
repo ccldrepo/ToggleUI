@@ -28,7 +28,7 @@ private:
 
     static void ToggleHUDElement(const char* a_pathToVar);
 
-    void ToggleHUD(RE::UI* a_ui);
+    void ToggleHUD(const Configuration* a_config, RE::UI* a_ui);
     void ToggleMenu(RE::UI* a_ui);
 
     bool _hudVisible{ true };

@@ -41,7 +41,7 @@ void Application::ToggleUI()
     const auto config = Configuration::GetSingleton();
     auto       ui = RE::UI::GetSingleton();
     if (IsInGameplayContext()) {
-        ToggleHUD(ui);
+        ToggleHUD(config, ui);
         RE::PlaySound("UIMenuFocus");
     } else if (IsInBannedMenu(config, ui)) {
         // Disable toggle.
@@ -49,7 +49,7 @@ void Application::ToggleUI()
         ToggleMenu(ui);
         RE::PlaySound("UIMenuFocus");
     } else {
-        ToggleHUD(ui);
+        ToggleHUD(config, ui);
         RE::PlaySound("UIMenuFocus");
     }
 }
@@ -110,12 +110,11 @@ void Application::ToggleHUDElement(const char* a_pathToVar)
     }
 }
 
-void Application::ToggleHUD(RE::UI* a_ui)
+void Application::ToggleHUD(const Configuration* a_config, RE::UI* a_ui)
 {
-    const auto config = Configuration::GetSingleton();
     _hudVisible = !_hudVisible;
     RE::GFxValue value{ _hudVisible ? 100 : 0 };
-    for (std::string_view hudName : config->slHUDNames) {
+    for (std::string_view hudName : a_config->slHUDNames) {
         if (auto uiMovie = a_ui->GetMovieView(hudName)) {
             uiMovie->SetVariable("_root._alpha", value);
         }
