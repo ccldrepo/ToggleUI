@@ -31,6 +31,6 @@ private:
     void ToggleHUD(RE::UI* a_ui);
     void ToggleMenu(RE::UI* a_ui);
 
-    bool hudVisible{ true };
-    bool menuVisible{ true };
+    bool _hudVisible{ true };
+    bool _menuVisible{ true };
 };

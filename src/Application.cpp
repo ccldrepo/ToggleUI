@@ -56,7 +56,7 @@ void Application::ToggleUI()
 
 void Application::ResetUI()
 {
-    if (!menuVisible) {
+    if (!_menuVisible) {
         auto ui = RE::UI::GetSingleton();
         ToggleMenu(ui);
     }
@@ -113,8 +113,8 @@ void Application::ToggleHUDElement(const char* a_pathToVar)
 void Application::ToggleHUD(RE::UI* a_ui)
 {
     const auto config = Configuration::GetSingleton();
-    hudVisible = !hudVisible;
-    RE::GFxValue value{ hudVisible ? 100 : 0 };
+    _hudVisible = !_hudVisible;
+    RE::GFxValue value{ _hudVisible ? 100 : 0 };
     for (std::string_view hudName : config->slHUDNames) {
         if (auto uiMovie = a_ui->GetMovieView(hudName)) {
             uiMovie->SetVariable("_root._alpha", value);
@@ -124,6 +124,6 @@ void Application::ToggleHUD(RE::UI* a_ui)
 
 void Application::ToggleMenu(RE::UI* a_ui)
 {
-    menuVisible = !menuVisible;
-    a_ui->ShowMenus(menuVisible);
+    _menuVisible = !_menuVisible;
+    a_ui->ShowMenus(_menuVisible);
 }
