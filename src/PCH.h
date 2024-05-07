@@ -74,7 +74,7 @@ namespace SKSE::stl
             spdlog::level::info, a_msg);
     }
 
-    inline void log_failure(const std::string& a_msg, bool a_abort,
+    [[noreturn]] inline void log_failure(const std::string& a_msg, bool a_abort,
         std::source_location a_loc = std::source_location::current())
     {
         // Abort or throw when error occurred.
