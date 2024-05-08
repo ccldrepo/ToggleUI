@@ -26,7 +26,7 @@ private:
     static bool IsInBannedMenu(const Configuration* a_config, RE::UI* a_ui);
     static bool IsInMenuContext(const Configuration* a_config, RE::UI* a_ui);
 
-    static void ToggleHUDElement(const char* a_pathToVar);
+    static bool ToggleHUDElement(const char* a_pathToVar);
 
     void ToggleHUD(const Configuration* a_config, RE::UI* a_ui);
     void ToggleMenu(RE::UI* a_ui);

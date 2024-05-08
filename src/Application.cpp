@@ -94,7 +94,7 @@ bool Application::IsInMenuContext(const Configuration* a_config, RE::UI* a_ui)
     return !IsInGameplayContext() && (IsInMenu(a_config, a_ui) || IsInBannedMenu(a_config, a_ui));
 }
 
-void Application::ToggleHUDElement(const char* a_pathToVar)
+bool Application::ToggleHUDElement(const char* a_pathToVar)
 {
     const auto config = Configuration::GetSingleton();
     auto       ui = RE::UI::GetSingleton();
@@ -102,10 +102,12 @@ void Application::ToggleHUDElement(const char* a_pathToVar)
         return;
     }
 
+    bool visible = false;
     if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
-        double value = uiMovie->GetVariableDouble(a_pathToVar);
-        uiMovie->SetVariableDouble(a_pathToVar, value < 1.0 ? 100.0 : 0.0);
+        visible = uiMovie->GetVariableDouble(a_pathToVar) < 1.0;  // invert visible
+        uiMovie->SetVariableDouble(a_pathToVar, visible ? 100.0 : 0.0);
     }
+    return visible;
 }
 
 void Application::ToggleHUD(const Configuration* a_config, RE::UI* a_ui)
