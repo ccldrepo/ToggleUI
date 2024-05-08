@@ -8,11 +8,11 @@
 #include <string_view>
 #include <type_traits>
 
-void* _GetModuleFunc(const wchar_t* a_moduleName, const char* a_funcName) noexcept;
+[[nodiscard]] void* _GetModuleFunc(const wchar_t* a_moduleName, const char* a_funcName) noexcept;
 
 template <class T>
     requires(std::is_pointer_v<T> && std::is_function_v<std::remove_pointer_t<T>>)
-inline T GetModuleFunc(const wchar_t* a_moduleName, const char* a_funcName) noexcept
+[[nodiscard]] inline T GetModuleFunc(const wchar_t* a_moduleName, const char* a_funcName) noexcept
 {
     return reinterpret_cast<T>(_GetModuleFunc(a_moduleName, a_funcName));
 }
@@ -48,4 +48,4 @@ private:
     std::uint32_t _build;
 };
 
-std::optional<OsVersion> GetOsVersion() noexcept;
+[[nodiscard]] std::optional<OsVersion> GetOsVersion() noexcept;

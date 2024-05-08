@@ -88,7 +88,7 @@ namespace SKSE::stl
     }
 }
 
-inline std::filesystem::path StrToPath(std::string_view a_str)
+[[nodiscard]] inline std::filesystem::path StrToPath(std::string_view a_str)
 {
     auto wstr = SKSE::stl::utf8_to_utf16(a_str);
     if (!wstr) {
@@ -97,7 +97,7 @@ inline std::filesystem::path StrToPath(std::string_view a_str)
     return std::filesystem::path{ *std::move(wstr) };
 }
 
-inline std::string PathToStr(const std::filesystem::path& a_path)
+[[nodiscard]] inline std::string PathToStr(const std::filesystem::path& a_path)
 {
     auto str = SKSE::stl::utf16_to_utf8(a_path.native());
     if (!str) {
