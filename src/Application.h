@@ -15,9 +15,9 @@ public:
     void ToggleUI();
     void ResetUI();
 
-    static void ToggleCompass();
-    static void TogglePlayerBar();
-    static void ToggleSubtitle();
+    static bool ToggleCompass();
+    static bool TogglePlayerBar();
+    static bool ToggleSubtitle();
 
 private:
     Application() = default;

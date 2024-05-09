@@ -62,21 +62,21 @@ void Application::ResetUI()
     }
 }
 
-void Application::ToggleCompass()  //
+bool Application::ToggleCompass()  //
 {
-    ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha");
+    return ToggleHUDElement("_root.HUDMovieBaseInstance.CompassShoutMeterHolder._alpha");
 }
 
-void Application::TogglePlayerBar()
+bool Application::TogglePlayerBar()
 {
     ToggleHUDElement("_root.HUDMovieBaseInstance.Health._alpha");
     ToggleHUDElement("_root.HUDMovieBaseInstance.Magica._alpha");
-    ToggleHUDElement("_root.HUDMovieBaseInstance.Stamina._alpha");
+    return ToggleHUDElement("_root.HUDMovieBaseInstance.Stamina._alpha");
 }
 
-void Application::ToggleSubtitle()  //
+bool Application::ToggleSubtitle()  //
 {
-    ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
+    return ToggleHUDElement("_root.HUDMovieBaseInstance.SubtitleTextHolder._alpha");
 }
 
 bool Application::IsInMenu(const Configuration* a_config, RE::UI* a_ui)
