@@ -96,14 +96,8 @@ bool Application::IsInMenuContext(const Configuration* a_config, RE::UI* a_ui)
 
 bool Application::ToggleHUDElement(const char* a_pathToVar)
 {
-    const auto config = Configuration::GetSingleton();
-    auto       ui = RE::UI::GetSingleton();
-    if (IsInMenuContext(config, ui)) {
-        return;
-    }
-
     bool visible = false;
-    if (auto uiMovie = ui->GetMovieView(RE::HUDMenu::MENU_NAME)) {
+    if (auto uiMovie = RE::UI::GetSingleton()->GetMovieView(RE::HUDMenu::MENU_NAME)) {
         visible = uiMovie->GetVariableDouble(a_pathToVar) < 1.0;  // invert visible
         uiMovie->SetVariableDouble(a_pathToVar, visible ? 100.0 : 0.0);
     }
