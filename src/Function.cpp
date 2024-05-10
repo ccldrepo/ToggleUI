@@ -5,12 +5,6 @@
 #include "Application.h"
 #include "Configuration.h"
 
-MFMAPI void ToggleUI()
-{
-    auto app = Application::GetSingleton();
-    app->ToggleUI();
-}
-
 MFMAPI void ToggleHUD_Compass()
 {
     auto app = Application::GetSingleton();
@@ -27,6 +21,12 @@ MFMAPI void ToggleHUD_Subtitle()
 {
     auto app = Application::GetSingleton();
     app->ToggleSubtitle();
+}
+
+MFMAPI void ToggleUI()
+{
+    auto app = Application::GetSingleton();
+    app->ToggleUI();
 }
 
 MFMAPI void ReloadConfig(char* a_msg, std::size_t a_len)
