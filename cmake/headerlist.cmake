@@ -1,13 +1,13 @@
-set(headers
-    src/Application.h
-    src/CLib/Hook.h
-    src/CLib/Key.h
-    src/Configuration.h
-    src/Events.h
-    src/Function.h
-    src/HotkeyManager.h
-    src/PCH.h
-    src/Util/Singleton.h
-    src/Util/TOML.h
-    src/Util/Win.h
+set(PROJECT_HEADERS
+    "src/Application.h"
+    "src/CLib/Hook.h"
+    "src/CLib/Key.h"
+    "src/Configuration.h"
+    "src/Events.h"
+    "src/Function.h"
+    "src/HotkeyManager.h"
+    "src/PCH.h"
+    "src/Util/Singleton.h"
+    "src/Util/TOML.h"
+    "src/Util/Win.h"
 )

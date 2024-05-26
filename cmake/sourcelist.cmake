@@ -1,9 +1,9 @@
-set(sources
-    src/Application.cpp
-    src/Configuration.cpp
-    src/Events.cpp
-    src/Function.cpp
-    src/HotkeyManager.cpp
-    src/Main.cpp
-    src/Util/Win.cpp
+set(PROJECT_SOURCES
+    "src/Application.cpp"
+    "src/Configuration.cpp"
+    "src/Events.cpp"
+    "src/Function.cpp"
+    "src/HotkeyManager.cpp"
+    "src/Main.cpp"
+    "src/Util/Win.cpp"
 )
