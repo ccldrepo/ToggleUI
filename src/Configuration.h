@@ -5,7 +5,7 @@
 class Configuration
 {
 public:
-    [[nodiscard]] static const Configuration* GetSingleton() { return _config.get(); }
+    [[nodiscard]] static const Configuration* GetSingleton() { return _singleton.get(); }
 
     Configuration(const Configuration&) = delete;
     Configuration(Configuration&&) = delete;
@@ -110,7 +110,7 @@ private:
     void LoadImpl();
     void SaveImpl() const;
 
-    static inline std::unique_ptr<Configuration> _config{ nullptr };
+    static inline std::unique_ptr<Configuration> _singleton;
 
     static inline const std::filesystem::path _path{ L"Data/SKSE/Plugins/ccld_ToggleUI.toml"sv };
 };

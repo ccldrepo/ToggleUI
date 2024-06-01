@@ -13,22 +13,21 @@ void Configuration::Init(bool a_abort)
         // Export default config if config file not exists.
         tmp->Save(a_abort);
     }
-    _config = std::move(tmp);
+    _singleton = std::move(tmp);
 }
 
 void Configuration::Load(bool a_abort)
 {
     try {
         LoadImpl();
-        auto msg = std::format("Successfully loaded configuration from \"{}\".", PathToStr(_path));
-        SKSE::stl::log_success(msg);
+        SKSE::log::info("Successfully loaded configuration from \"{}\".", PathToStr(_path));
     } catch (const toml::parse_error& e) {
         auto msg = std::format("Failed to load configuration from \"{}\" (error occurred at line {}, column {}): {}.",
             PathToStr(_path), e.source().begin.line, e.source().begin.column, e.what());
-        SKSE::stl::log_failure(msg, a_abort);
+        SKSE::stl::report_fatal_error(msg, a_abort);
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to load configuration from \"{}\": {}.", PathToStr(_path), e.what());
-        SKSE::stl::log_failure(msg, a_abort);
+        SKSE::stl::report_fatal_error(msg, a_abort);
     }
 }
 
@@ -36,11 +35,10 @@ void Configuration::Save(bool a_abort) const
 {
     try {
         SaveImpl();
-        auto msg = std::format("Successfully saved configuration to \"{}\".", PathToStr(_path));
-        SKSE::stl::log_success(msg);
+        SKSE::log::info("Successfully saved configuration to \"{}\".", PathToStr(_path));
     } catch (const std::exception& e) {
         auto msg = std::format("Failed to save configuration to \"{}\": {}.", PathToStr(_path), e.what());
-        SKSE::stl::log_failure(msg, a_abort);
+        SKSE::stl::report_fatal_error(msg, a_abort);
     }
 }
 
