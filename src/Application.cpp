@@ -32,14 +32,14 @@ namespace
 
 bool Application::IsMenu(std::string_view a_menuName)
 {
-    const auto config = Configuration::GetSingleton();
+    auto config = Configuration::GetSingleton();
     return std::ranges::binary_search(config->slMenuNames, a_menuName);
 }
 
 void Application::ToggleUI()
 {
-    const auto config = Configuration::GetSingleton();
-    auto       ui = RE::UI::GetSingleton();
+    auto config = Configuration::GetSingleton();
+    auto ui = RE::UI::GetSingleton();
     if (IsInGameplayContext()) {
         ToggleHUD(config, ui);
         RE::PlaySound("UIMenuFocus");

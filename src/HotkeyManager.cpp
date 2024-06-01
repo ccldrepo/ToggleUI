@@ -79,7 +79,7 @@ namespace
 
 void HotkeyManager::Process(const RE::InputEvent* const* a_event)
 {
-    const auto config = Configuration::GetSingleton();
+    auto config = Configuration::GetSingleton();
 
     HotkeyContext ctx{ config };
 
