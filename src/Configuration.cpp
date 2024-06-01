@@ -46,21 +46,21 @@ void Configuration::LoadImpl()
 {
     auto data = LoadTOMLFile(_path);
 
-    LoadTOMLValue(data, "iHotkey"sv, iHotkey);
-    LoadTOMLValue(data, "iModifier"sv, iModifier);
+    GetTOMLValue(data, "iHotkey"sv, iHotkey);
+    GetTOMLValue(data, "iModifier"sv, iModifier);
 
-    LoadTOMLValue(data, "iHotkeyCompass"sv, iHotkeyCompass);
-    LoadTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
+    GetTOMLValue(data, "iHotkeyCompass"sv, iHotkeyCompass);
+    GetTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
 
-    LoadTOMLValue(data, "iHotkeyPlayerBar"sv, iHotkeyPlayerBar);
-    LoadTOMLValue(data, "iModifierPlayerBar"sv, iModifierPlayerBar);
+    GetTOMLValue(data, "iHotkeyPlayerBar"sv, iHotkeyPlayerBar);
+    GetTOMLValue(data, "iModifierPlayerBar"sv, iModifierPlayerBar);
 
-    LoadTOMLValue(data, "iHotkeySubtitle"sv, iHotkeySubtitle);
-    LoadTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
+    GetTOMLValue(data, "iHotkeySubtitle"sv, iHotkeySubtitle);
+    GetTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
 
-    LoadTOMLValue(data, "slHUDNames"sv, slHUDNames);
-    LoadTOMLValue(data, "slMenuNames"sv, slMenuNames);
-    LoadTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
+    GetTOMLValue(data, "slHUDNames"sv, slHUDNames);
+    GetTOMLValue(data, "slMenuNames"sv, slMenuNames);
+    GetTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
 
     // Make sure menu names are ordered, so that binary search can be used.
     std::ranges::sort(slMenuNames);
@@ -71,21 +71,21 @@ void Configuration::SaveImpl() const
 {
     toml::table data;
 
-    SaveTOMLValue(data, "iHotkey"sv, iHotkey);
-    SaveTOMLValue(data, "iModifier"sv, iModifier);
+    SetTOMLValue(data, "iHotkey"sv, iHotkey);
+    SetTOMLValue(data, "iModifier"sv, iModifier);
 
-    SaveTOMLValue(data, "iHotkeyCompass"sv, iHotkeyCompass);
-    SaveTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
+    SetTOMLValue(data, "iHotkeyCompass"sv, iHotkeyCompass);
+    SetTOMLValue(data, "iModifierCompass"sv, iModifierCompass);
 
-    SaveTOMLValue(data, "iHotkeyPlayerBar"sv, iHotkeyPlayerBar);
-    SaveTOMLValue(data, "iModifierPlayerBar"sv, iModifierPlayerBar);
+    SetTOMLValue(data, "iHotkeyPlayerBar"sv, iHotkeyPlayerBar);
+    SetTOMLValue(data, "iModifierPlayerBar"sv, iModifierPlayerBar);
 
-    SaveTOMLValue(data, "iHotkeySubtitle"sv, iHotkeySubtitle);
-    SaveTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
+    SetTOMLValue(data, "iHotkeySubtitle"sv, iHotkeySubtitle);
+    SetTOMLValue(data, "iModifierSubtitle"sv, iModifierSubtitle);
 
-    SaveTOMLValue(data, "slHUDNames"sv, slHUDNames);
-    SaveTOMLValue(data, "slMenuNames"sv, slMenuNames);
-    SaveTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
+    SetTOMLValue(data, "slHUDNames"sv, slHUDNames);
+    SetTOMLValue(data, "slMenuNames"sv, slMenuNames);
+    SetTOMLValue(data, "slBannedMenuNames"sv, slBannedMenuNames);
 
     SaveTOMLFile(_path, data);
 }
