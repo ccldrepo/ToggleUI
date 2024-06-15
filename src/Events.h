@@ -1,7 +1,5 @@
 #pragma once
 
-#include <PCH.h>
-
 #include "Util/Singleton.h"
 
 class InputEventSink final : public Singleton<InputEventSink>, public RE::BSTEventSink<RE::InputEvent*>

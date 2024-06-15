@@ -1,7 +1,5 @@
 #pragma once
 
-#include <PCH.h>
-
 namespace CLib
 {
     // The call hook base class.

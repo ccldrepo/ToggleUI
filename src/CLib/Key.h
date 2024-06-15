@@ -1,7 +1,5 @@
 #pragma once
 
-#include <PCH.h>
-
 namespace CLib
 {
     inline std::uint32_t ParseKey(std::uint32_t a_key, RE::INPUT_DEVICE a_device)

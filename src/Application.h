@@ -1,7 +1,5 @@
 #pragma once
 
-#include <PCH.h>
-
 #include "Configuration.h"
 #include "Util/Singleton.h"
 
